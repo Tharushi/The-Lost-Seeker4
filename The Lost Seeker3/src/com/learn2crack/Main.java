@@ -26,6 +26,10 @@ public class Main extends Activity {
 		setContentView(R.layout.main);
 
 		Button search = (Button) findViewById(R.id.Btnsearch);
+		Button addfound=(Button) findViewById(R.id.btnaddfounditem);
+		Button addlost=(Button) findViewById(R.id.Btnaddlostitem);
+		changepas = (Button) findViewById(R.id.btchangepass);
+		btnLogout = (Button) findViewById(R.id.logout);
 		search.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -33,10 +37,9 @@ public class Main extends Activity {
 				// TODO Auto-generated method stub
 				startActivity(new Intent(Main.this, Search.class));
 			}
-		});
-
-		changepas = (Button) findViewById(R.id.btchangepass);
-		btnLogout = (Button) findViewById(R.id.logout);
+		}
+		);
+		
 
 		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
@@ -46,9 +49,9 @@ public class Main extends Activity {
 		HashMap<String, String> user = new HashMap<String, String>();
 		user = db.getUserDetails();
 
-		/**
-		 * Change Password Activity Started
-		 **/
+		
+		 // Change Password Activity Started
+		 
 		changepas.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
 
@@ -59,6 +62,32 @@ public class Main extends Activity {
 			}
 
 		});
+		
+		 // Add found Item Activity Started
+		 
+			addfound.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View arg0) {
+
+					Intent addfound = new Intent(getApplicationContext(),
+							AddFoundItem.class);
+
+					startActivity(addfound);
+				}
+
+			});
+			
+			 // Add Lost Item Activity Started
+			 
+			addlost.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View arg0) {
+
+					Intent addlost = new Intent(getApplicationContext(),
+							AddLostItem.class);
+
+					startActivity(addlost);
+				}
+
+			});
 
 		/**
 		 * Logout from the User Panel which clears the data in Sqlite database
