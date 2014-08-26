@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/android"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textwelcome"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:textColor="#000000"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/lname"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textwelcome"
+        android:textColor="#000000"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/btchangepass"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/logout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="17dp"
+        android:text="Change Password"
+        android:textColor="#000000"
+        android:textSize="13dp" />
+
+    <Button
+        android:id="@+id/Btnsearch"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/btchangepass"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:text="Search"
+        android:textColor="#000000"
+        android:textSize="13dp" />
+
+    <Button
+        android:id="@+id/Btnaddlostitem"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/Btnsearch"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="24dp"
+        android:text="Add Lost Item"
+        android:textColor="#000000"
+        android:textSize="13dp" />
+
+    <Button
+        android:id="@+id/btnaddfounditem"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/Btnaddlostitem"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="21dp"
+        android:text="Add Found Item"
+        android:textColor="#000000"
+        android:textSize="13dp" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="40dp"
+        android:text="Logout"
+        android:textColor="#000000"
+        android:textSize="13dp" />
+
+</RelativeLayout>

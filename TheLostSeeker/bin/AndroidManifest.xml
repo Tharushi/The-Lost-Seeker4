@@ -27,6 +27,19 @@
              android:label="@string/app_name" >
             
         </activity>
+         <activity 
+            android:name="com.Tharushi.thelostseeker.UserMain"
+             android:label="@string/app_name" >
+            
+        </activity>
+         <activity 
+            android:name="com.Tharushi.thelostseeker.Registered"
+             android:label="@string/app_name" >
+            
+        </activity>
     </application>
+     <!-- Allow to connect with internet and to know the current network state -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

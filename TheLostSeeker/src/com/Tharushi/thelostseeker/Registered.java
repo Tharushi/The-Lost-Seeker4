@@ -1,5 +1,10 @@
 package com.Tharushi.thelostseeker;
 
+/**
+ * @author Tharushi 110226H
+ *
+ */
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

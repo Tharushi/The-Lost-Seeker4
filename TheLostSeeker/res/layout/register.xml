@@ -16,7 +16,7 @@
         android:textColor="#000000" />
 
     <EditText
-        android:id="@+id/edname"
+        android:id="@+id/edusername"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
@@ -33,21 +33,8 @@
         android:layout_below="@+id/btnclaim"
         android:textColor="#000000" />
 
-    <EditText
-        android:id="@+id/edtelephone"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_alignBaseline="@+id/TextView01"
-        android:layout_alignBottom="@+id/TextView01"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:hint="Telephone"
-        android:inputType="textPassword"
-        android:textColor="#000000"
-        android:textSize="15dp" />
-
     <Button
-        android:id="@+id/btnclaim"
+        android:id="@+id/btnregister"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
@@ -56,28 +43,6 @@
         android:text="Register"
         android:textColor="#000000"
         android:textSize="13dp" />
-
-    <EditText
-        android:id="@+id/edaddress"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/TextView02"
-        android:ems="10"
-        android:hint="Address"
-        android:inputType="textPassword"
-        android:textColor="#000000"
-        android:textSize="15dp" />
-
-    <TextView
-        android:id="@+id/TextView01"
-        android:layout_width="125dp"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:text="Telephone"
-        android:textColor="#000000"
-        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/textView6"
@@ -105,25 +70,25 @@
         <requestFocus />
     </EditText>
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="125dp"
+    <EditText
+        android:id="@+id/edtelephone"
+        android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_above="@+id/edpassword"
-        android:layout_alignParentLeft="true"
-        android:text="Username"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:hint="Telephone"
         android:textColor="#000000"
         android:textSize="15dp" />
 
-    <EditText
-        android:id="@+id/eduname"
-        android:layout_width="200dp"
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="125dp"
         android:layout_height="40dp"
-        android:layout_alignBaseline="@+id/textView5"
-        android:layout_alignBottom="@+id/textView5"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:hint="Username"
+        android:layout_alignBaseline="@+id/edtelephone"
+        android:layout_alignBottom="@+id/edtelephone"
+        android:layout_alignParentLeft="true"
+        android:text="Telephone"
         android:textColor="#000000"
         android:textSize="15dp" />
 
@@ -131,9 +96,32 @@
         android:id="@+id/textView4"
         android:layout_width="125dp"
         android:layout_height="40dp"
-        android:layout_alignTop="@+id/edemail"
+        android:layout_above="@+id/edpassword"
         android:layout_toLeftOf="@+id/textView"
         android:text="Email"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/edaddress"
+        android:layout_alignBottom="@+id/edaddress"
+        android:layout_alignParentLeft="true"
+        android:text="Address"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/edaddress"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/TextView01"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:hint="Address"
         android:textColor="#000000"
         android:textSize="15dp" />
 
@@ -141,7 +129,8 @@
         android:id="@+id/edemail"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_above="@+id/eduname"
+        android:layout_alignBaseline="@+id/textView4"
+        android:layout_alignBottom="@+id/textView4"
         android:layout_alignParentRight="true"
         android:ems="10"
         android:hint="E-mail"
@@ -150,21 +139,10 @@
         android:textSize="15dp" />
 
     <TextView
-        android:id="@+id/TextView02"
-        android:layout_width="125dp"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TextView01"
-        android:layout_marginTop="36dp"
-        android:text="Address"
-        android:textColor="#000000"
-        android:textSize="15dp" />
-
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="125dp"
         android:layout_height="40dp"
-        android:layout_above="@+id/textView4"
+        android:layout_above="@+id/edemail"
         android:layout_alignParentLeft="true"
         android:text="Name"
         android:textColor="#000000"
