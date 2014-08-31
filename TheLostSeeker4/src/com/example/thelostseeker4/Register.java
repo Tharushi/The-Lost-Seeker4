@@ -148,6 +148,7 @@ public class Register extends Activity {
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httppost = new HttpPost("http://10.0.2.2/insert.php");
+			// HttpPost httppost = new HttpPost("http:// 175.157.131.177/login.php");
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 			HttpResponse response = httpclient.execute(httppost);
 			HttpEntity entity = response.getEntity();
