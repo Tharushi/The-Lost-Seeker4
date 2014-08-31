@@ -53,6 +53,7 @@ public class Main extends Activity {
 		 // Change Password Activity Started
 		 
 		changepas.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View arg0) {
 
 				Intent chgpass = new Intent(getApplicationContext(),
@@ -66,6 +67,7 @@ public class Main extends Activity {
 		 // Add found Item Activity Started
 		 
 			addfound.setOnClickListener(new View.OnClickListener() {
+				@Override
 				public void onClick(View arg0) {
 
 					Intent addfound = new Intent(getApplicationContext(),
@@ -79,6 +81,7 @@ public class Main extends Activity {
 			 // Add Lost Item Activity Started
 			 
 			addlost.setOnClickListener(new View.OnClickListener() {
+				@Override
 				public void onClick(View arg0) {
 
 					Intent addlost = new Intent(getApplicationContext(),
@@ -94,6 +97,7 @@ public class Main extends Activity {
 		 **/
 		btnLogout.setOnClickListener(new View.OnClickListener() {
 
+			@Override
 			public void onClick(View arg0) {
 
 				UserFunctions logout = new UserFunctions();

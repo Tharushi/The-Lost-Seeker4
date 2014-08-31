@@ -16,7 +16,7 @@
         android:textColor="#000000" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtlocation"
         android:layout_width="125dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
@@ -30,7 +30,7 @@
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textView2"
+        android:layout_alignTop="@+id/txtlocation"
         android:hint="First Name"
         android:textColor="#000000"
         android:textSize="15dp" />
@@ -39,7 +39,7 @@
         android:id="@+id/textView3"
         android:layout_width="125dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/txtlocation"
         android:layout_toLeftOf="@+id/textView"
         android:text="Last Name"
         android:textColor="#000000"
@@ -123,7 +123,7 @@
         android:id="@+id/btclaim"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_alignRight="@+id/textView2"
+        android:layout_alignRight="@+id/txtlocation"
         android:layout_below="@+id/textView6"
         android:text="Register"
         android:textColor="#000000"

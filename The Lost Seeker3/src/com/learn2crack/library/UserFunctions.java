@@ -17,12 +17,15 @@ public class UserFunctions {
     private static String registerURL = "http://10.0.2.2/thelostseekerAPI/";
     private static String forpassURL = "http://10.0.2.2/thelostseekerAPI/";
     private static String chgpassURL = "http://10.0.2.2/thelostseekerAPI/";
+    private static String addfoundURL = "http://10.0.2.2/thelostseekerAPI/addFound.php";
 
 
     private static String login_tag = "login";
     private static String register_tag = "register";
     private static String forpass_tag = "forpass";
     private static String chgpass_tag = "chgpass";
+    private static String addfound_tag = "addfound";
+    
 
 
     // constructor
@@ -76,9 +79,9 @@ public class UserFunctions {
 
 
 
-     /**
-      * Function to  Register
-      **/
+     
+     // Function to  Register
+     
     public JSONObject registerUser(String fname, String lname, String email, String uname, String password){
         // Building Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -90,6 +93,20 @@ public class UserFunctions {
         params.add(new BasicNameValuePair("password", password));
         JSONObject json = jsonParser.getJSONFromUrl(registerURL,params);
         return json;
+    }
+    
+    // Function to add found item 
+   public JSONObject addFoundItem(String category,String description,String location,String uid ){
+	      // Building Parameters
+       List<NameValuePair> params = new ArrayList<NameValuePair>();
+       params.add(new BasicNameValuePair("tag", addfound_tag));
+       params.add(new BasicNameValuePair("category",category));
+       params.add(new BasicNameValuePair("description",description));
+       params.add(new BasicNameValuePair("location", location));
+       params.add(new BasicNameValuePair("uid", uid));
+       JSONObject json = jsonParser.getJSONFromUrl(addfoundURL,params);
+	   return json;
+    	
     }
 
 

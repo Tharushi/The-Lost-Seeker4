@@ -5,7 +5,7 @@
     android:background="@drawable/android" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/txtdescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -16,11 +16,11 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtlocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/txtdescription"
+        android:layout_below="@+id/txtdescription"
         android:layout_marginTop="32dp"
         android:text="Print all details of  the item selected"
         android:textSize="18sp" />

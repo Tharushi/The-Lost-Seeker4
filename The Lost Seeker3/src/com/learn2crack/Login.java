@@ -57,6 +57,7 @@ public class Login extends Activity {
 		loginErrorMsg = (TextView) findViewById(R.id.loginErrorMsg);
 
 		passreset.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View view) {
 				Intent myIntent = new Intent(view.getContext(),
 						PasswordReset.class);
@@ -66,6 +67,7 @@ public class Login extends Activity {
 		});
 
 		Btnregister.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View view) {
 				Intent myIntent = new Intent(view.getContext(), Register.class);
 				startActivityForResult(myIntent, 0);
@@ -79,6 +81,7 @@ public class Login extends Activity {
 		 **/
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 
+			@Override
 			public void onClick(View view) {
 
 				if ((!inputEmail.getText().toString().equals(""))
@@ -156,6 +159,7 @@ public class Login extends Activity {
 				new ProcessLogin().execute();
 			} else {
 				nDialog.dismiss();
+				
 				loginErrorMsg.setText("Error in Network Connection");
 			}
 		}

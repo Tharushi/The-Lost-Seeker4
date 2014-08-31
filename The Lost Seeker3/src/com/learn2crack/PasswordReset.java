@@ -44,6 +44,7 @@ public class PasswordReset extends Activity {
 
 		Button login = (Button) findViewById(R.id.bktolog);
 		login.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View view) {
 				Intent myIntent = new Intent(view.getContext(), Login.class);
 				startActivityForResult(myIntent, 0);

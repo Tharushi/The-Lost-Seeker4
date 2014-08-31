@@ -48,6 +48,7 @@ public class ChangePassword extends Activity {
 
 		cancel = (Button) findViewById(R.id.btcancel);
 		cancel.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View arg0) {
 
 				Intent login = new Intent(getApplicationContext(), Main.class);

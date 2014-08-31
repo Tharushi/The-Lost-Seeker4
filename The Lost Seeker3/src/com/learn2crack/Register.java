@@ -76,6 +76,7 @@ public class Register extends Activity {
 
 		Button login = (Button) findViewById(R.id.bktologin);
 		login.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View view) {
 				Intent myIntent = new Intent(view.getContext(), Login.class);
 				startActivityForResult(myIntent, 0);
@@ -84,11 +85,9 @@ public class Register extends Activity {
 
 		});
 
-		/**
-		 * Register Button click event. A Toast is set to alert when the fields
-		 * are empty. Another toast is set to alert Username must be 5
-		 * characters.
-		 **/
+		// Register Button click event. A Toast is set to alert when the fields
+		// are empty. Another toast is set to alert Username must be 5
+		// characters.
 
 		btnRegister.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -116,9 +115,7 @@ public class Register extends Activity {
 		});
 	}
 
-	/**
-	 * Async Task to check whether internet connection is working
-	 **/
+	// Async Task to check whether internet connection is working
 
 	private class NetCheck extends AsyncTask<String, String, Boolean> {
 		private ProgressDialog nDialog;
@@ -137,10 +134,9 @@ public class Register extends Activity {
 		@Override
 		protected Boolean doInBackground(String... args) {
 
-			/**
-			 * Gets current device state and checks for working internet
-			 * connection by trying Google.
-			 **/
+			// Gets current device state and checks for working internet
+			// connection by trying Google.
+
 			ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 			NetworkInfo netInfo = cm.getActiveNetworkInfo();
 			if (netInfo != null && netInfo.isConnected()) {
