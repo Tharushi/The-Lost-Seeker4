@@ -38,7 +38,25 @@ public class Main extends Activity {
 			}
 		}
 		);
+		addfound.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				
+				startActivity(new Intent(Main.this, AddFoundItem.class));
+			}
+		});
 		
+		addlost.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				
+				startActivity(new Intent(Main.this, AddLostItem.class));
+			}
+		});
 
 
 	}

@@ -82,7 +82,7 @@ public class Register extends Activity {
 		inputaddress = (EditText) findViewById(R.id.txtaddress);
 		editTP = (EditText) findViewById(R.id.txttelephone);
 
-		editEmail = (EditText) findViewById(R.id.txtemail);
+		editEmail = (EditText) findViewById(R.id.txtusername);
 		editusername = (EditText) findViewById(R.id.txtuname);
 		editpassword = (EditText) findViewById(R.id.txtpword);
 
