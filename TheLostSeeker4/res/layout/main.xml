@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textwelcome"
+        android:id="@+id/textfname"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:textColor="#000000"
@@ -17,7 +17,7 @@
         android:layout_width="125dp"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textwelcome"
+        android:layout_toRightOf="@+id/textfname"
         android:textColor="#000000"
         android:textSize="20dp" />
 
@@ -25,7 +25,7 @@
         android:id="@+id/btchangepass"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:layout_above="@+id/logout"
+        android:layout_above="@+id/btnlogout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="17dp"
@@ -34,7 +34,7 @@
         android:textSize="13dp" />
 
     <Button
-        android:id="@+id/Btnsearch"
+        android:id="@+id/btnsearch"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_above="@+id/btchangepass"
@@ -46,10 +46,10 @@
         android:textSize="13dp" />
 
     <Button
-        android:id="@+id/Btnaddlostitem"
+        android:id="@+id/btnaddlostitem"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:layout_above="@+id/Btnsearch"
+        android:layout_above="@+id/btnsearch"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="24dp"
@@ -61,7 +61,7 @@
         android:id="@+id/btnaddfounditem"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:layout_above="@+id/Btnaddlostitem"
+        android:layout_above="@+id/btnaddlostitem"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="21dp"
@@ -70,7 +70,7 @@
         android:textSize="13dp" />
 
     <Button
-        android:id="@+id/logout"
+        android:id="@+id/btnlogout"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"

@@ -52,7 +52,7 @@
             android:label="@string/app_name" >
                  </activity>
                  <activity
-            android:name="com.Tharushi.thelostseeker.AddLostItem"
+            android:name="com.example.thelostseeker4.AddLostItem"
             android:label="@string/app_name" >
                  </activity>
     </application>

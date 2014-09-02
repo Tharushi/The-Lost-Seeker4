@@ -29,6 +29,8 @@ public class SessionManagement extends Activity {
      
     // User name (make variable public to access from outside)
     public static final String KEY_NAME = "name";
+    // Email address (make variable public to access from outside)
+    public static final String KEY_PASSWORD = "password";
      
    
     // Constructor
@@ -39,13 +41,17 @@ public class SessionManagement extends Activity {
     }
     public void createLoginSession(String name){
     	System.out.println("4444444444444444444444");
+             
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
          
         // Storing name in pref
         editor.putString(KEY_NAME, name);
          
-     // commit changes
+        // Storing email in pref
+      //  editor.putString(KEY_PASSWORD, password);
+         
+        // commit changes
         editor.commit();
         
 }
@@ -55,6 +61,8 @@ public class SessionManagement extends Activity {
         // user name
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
            
+        // user email id
+       // user.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null));
         // return user
         return user;
     }
