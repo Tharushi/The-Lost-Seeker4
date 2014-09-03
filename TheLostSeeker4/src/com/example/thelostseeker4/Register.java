@@ -19,6 +19,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -220,36 +221,74 @@ public class Register extends Activity {
 								+ result);
 
 				// Create a JSON object from the request response
-				JSONObject jsonObject = new JSONObject(result);
+				try{
+					JSONObject jsonObject = new JSONObject(result);
 
-				// Retrieve the data from the JSON object
-				strName = jsonObject.getString("Result");
+					// Retrieve the data from the JSON object
+					strName = jsonObject.getString("Result");
+
+					String value = strName.trim();
+					int x = Integer.parseInt(value);
+					System.out
+							.println("********************************** result string is "
+									+ x);
+					int test = 1;
+					if (x == test) {
+						System.out.println("********************** came to pass");
+						status = 1;
+						final Context context = getApplicationContext();
+						final CharSequence text = "Successfully Registered";
+						 System.out.println("!!!!!!!!!!!jjjjjjjjjjjjjjjjjjj");
+						final int duration = Toast.LENGTH_LONG;
+						 
+						runOnUiThread(new Runnable() {
+							public void run() {
+
+							    Toast.makeText(context, text,duration).show();
+							    }
+							});
+						startActivity(new Intent(Register.this, Login.class));
+						
+					
+					} else {
+						final Context context = getApplicationContext();
+						final CharSequence text = "incorrect";
+						final int duration = Toast.LENGTH_LONG;
+
+						//Toast toast = Toast.makeText(context, text, duration);
+						//toast.show();
+						 System.out.println("!!!!!!!!!!!elseee...incorect user");
+						runOnUiThread(new Runnable() {
+							public void run() {
+
+							    Toast.makeText(context, text,duration).show();
+							    }
+							});
+						System.out.println("********************* came to fail");
+						status = 0;
+
+					}
+				}catch(Exception e){
+					final Context context = getApplicationContext();
+					final CharSequence text = "Existing  user name";
+					final int duration = Toast.LENGTH_LONG;
+
+					//Toast toast = Toast.makeText(context, text, duration);
+					//toast.show();
+					 System.out.println("!!!!!!!!!!!elseee...incorect user");
+					runOnUiThread(new Runnable() {
+						public void run() {
+
+						    Toast.makeText(context, text,duration).show();
+						    }
+						});
+					Log.e("Fail 3", e.toString());
+					
+				}
+
+
 	
 
-				String value = strName.trim();
-				int x = Integer.parseInt(value);
-				System.out
-						.println("********************************** result string is "
-								+ x);
-				int test = 1;
-				if (x == test) {
-					System.out.println("********************** came to pass");
-					status = 1;
-					startActivity(new Intent(Register.this, Login.class)); 
-					
-					
-				
-				} else {
-					Context context = getApplicationContext();
-					CharSequence text = "incorrect";
-					int duration = Toast.LENGTH_LONG;
-
-					Toast toast = Toast.makeText(context, text, duration);
-					toast.show();
-					System.out.println("********************* came to fail");
-					status = 0;
-
-				}
 
 			} catch (Exception e) {
 				Log.e("ClientServerDemo", "Error:", e);

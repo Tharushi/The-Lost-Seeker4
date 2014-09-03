@@ -33,6 +33,7 @@ public class Main extends Activity {
 		// Session class instance
 		session = new SessionManagement(getApplicationContext());
 		TextView lblName = (TextView) findViewById(R.id.txtfname);
+		TextView lblname2=(TextView) findViewById(R.id.txtlname);
 		// Button logout
 		btnLogout = (Button) findViewById(R.id.btnlogout);
 
@@ -40,15 +41,18 @@ public class Main extends Activity {
 		 * Call this function whenever you want to check user login This will
 		 * redirect user to LoginActivity is he is not logged in
 		 * */
-		/*session.checkLogin();
+		session.checkLogin();
 		// get user data from session
 		HashMap<String, String> user = session.getUserDetails();
 		// name
 		String name = user.get(SessionManagement.KEY_NAME);
-		// displaying user data
-		lblName.setText(Html.fromHtml("Welcome !!! : <b>" + name + "</b>"));
-
 		System.out.println("welcome!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + name);
+		
+		// displaying user data
+	//	lblName.setText(Html.fromHtml("Welcome !!! : <b>" + name + "</b>"));
+		//lblName.setText("Welcome  "+name);
+		//lblname2.setText(name);
+		
 
 		btnLogout.setOnClickListener(new View.OnClickListener() {
 
@@ -58,7 +62,7 @@ public class Main extends Activity {
 				// redirect user to LoginActivity
 				session.logoutUser();
 			}
-		});*/
+		});
 
 		// /////////////////////////////////////////////////////
 
