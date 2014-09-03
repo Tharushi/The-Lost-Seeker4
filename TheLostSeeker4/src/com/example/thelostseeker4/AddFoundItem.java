@@ -248,6 +248,7 @@ public class AddFoundItem extends Activity {
 								+ result);
 
 				// Create a JSON object from the request response
+				try{
 				JSONObject jsonObject = new JSONObject(result);
 
 				// Retrieve the data from the JSON object
@@ -263,6 +264,19 @@ public class AddFoundItem extends Activity {
 					System.out.println("!!!aaaaaaaaaaaaaaa!!!!!!!!!!!!");
 					System.out.println("********************** came to pass");
 					status = 1;
+					final Context context = getApplicationContext();
+					final CharSequence text = "Successfully added an Item";
+					final int duration = Toast.LENGTH_LONG;
+
+					//Toast toast = Toast.makeText(context, text, duration);
+					//toast.show();
+					
+					runOnUiThread(new Runnable() {
+						public void run() {
+
+						    Toast.makeText(context, text,duration).show();
+						    }
+						});
 					startActivity(new Intent(AddFoundItem.this, Main.class));
 
 				} else {
@@ -279,6 +293,23 @@ public class AddFoundItem extends Activity {
 					status = 0;
 
 				}
+				}catch(Exception e){
+					final Context context = getApplicationContext();
+					final CharSequence text = "incorect adding of item";
+					final int duration = Toast.LENGTH_LONG;
+
+					//Toast toast = Toast.makeText(context, text, duration);
+					//toast.show();
+					 System.out.println("!!!!!!!!!!!elseee...incorect adding of item");
+					runOnUiThread(new Runnable() {
+						public void run() {
+
+						    Toast.makeText(context, text,duration).show();
+						    }
+						});
+					Log.e("Fail 3", e.toString());
+				}
+				
 
 			} catch (Exception e) {
 				System.out.println("!!!!qqqqqqqqqqqqq!!!!!!!!!!");
