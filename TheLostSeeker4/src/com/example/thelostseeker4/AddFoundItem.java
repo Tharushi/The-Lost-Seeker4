@@ -4,6 +4,9 @@
 package com.example.thelostseeker4;
 
 import java.io.ByteArrayOutputStream;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,12 +25,16 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import com.example.thelostseeker4.ColorPickerDialog.OnColorChangedListener;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -37,6 +44,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
@@ -52,7 +60,7 @@ import appsettings.Appsettings;
  * @author Tharushi 110226H
  * 
  */
-public class AddFoundItem extends Activity {
+public class AddFoundItem extends Activity implements ColorPickerDialog.OnColorChangedListener{
 	private String url4 = "http://" + Appsettings.ipAddress	+ "/mobile/sendmobile.php";
 
 	Button add = null;
@@ -65,6 +73,11 @@ public class AddFoundItem extends Activity {
 	public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
 	private ProgressDialog mProgressDialog;
 	static int count = 1;
+	Date date;
+	ColorPickerDialog clpicker;
+	private Paint mPaint;
+OnColorChangedListener listener;
+DatePicker dp;
 
 	String IMAGE1;
 	String IMAGE2;
@@ -82,7 +95,7 @@ public class AddFoundItem extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addfounditem);
-
+		 mPaint = new Paint();
 		// /////////////////////////////////////////////////////
 		// Session class instance
 		session = new SessionManagement(getApplicationContext());
@@ -106,11 +119,28 @@ public class AddFoundItem extends Activity {
 		// /////////////////////////////////////////////////////
 
 		add = (Button) findViewById(R.id.btnaddfound);
+		 Button addcolor= (Button) findViewById(R.id.btnaddcolor);
+		 TextView txtcol=(TextView) findViewById(R.id.txtcolor);
+		 addcolor.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				clpicker= new ColorPickerDialog(AddFoundItem.this, AddFoundItem.this, mPaint.getColor());
+				clpicker.show();
+				System.out.println("selected color ....."+mPaint.getColor());
+				
+			}
+		});
+		
+		 txtcol.setText(String.valueOf(mPaint.getColor()));
 
 		category = (Spinner) findViewById(R.id.spinner3);
 		inputdescription = (TextView) findViewById(R.id.txtdescrption);
 		inputlocation = (TextView) findViewById(R.id.txtlocation1);
-
+		 dp=(DatePicker) findViewById(R.id.datePicker);
+		
+		
+		
 		// iv1=(ImageView) findViewById(R.id.image1);
 		// iv2=(ImageView) findViewById(R.id.image2);
 
@@ -182,8 +212,7 @@ public class AddFoundItem extends Activity {
 		// String strNameAge;
 
 		String strNameIrri;
-		int intAge;
-		int intPoints;
+		
 
 		Exception exception = null;
 
@@ -330,6 +359,15 @@ public class AddFoundItem extends Activity {
 			}
 
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see com.example.thelostseeker4.ColorPickerDialog.OnColorChangedListener#colorChanged(int)
+	 */
+	@Override
+	public void colorChanged(int color) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

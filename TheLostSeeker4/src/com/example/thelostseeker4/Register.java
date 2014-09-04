@@ -40,7 +40,8 @@ import android.widget.Toast;
 import appsettings.Appsettings;
 
 public class Register extends Activity {
-	private String url3 = "http://10.0.2.2/mobile/mobilenewuser.php";
+	private String url3 = "http://" + Appsettings.ipAddress
+			+ "/mobile/mobilenewuser.php";
 	EditText editTextnewname = null;
 	EditText editTextnewname1 = null;
 	EditText editTextnewaddress = null;
