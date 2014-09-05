@@ -1,10 +1,18 @@
 package com.example.thelostseeker4;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -18,45 +26,54 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.thelostseeker4.Login.DoPOST;
-
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import appsettings.Appsettings;
 
 public class Search extends Activity {
-	private String url1 = "http://" + Appsettings.ipAddress
+	private String url5 = "http://" + Appsettings.ipAddress
 			+ "/mobile/search.php";
-	private static final int DIALOG_DOWNLOAD_PROGRESS = 0;
-	private ProgressDialog mProgressDialog;
-	String category;
+	ListView listViewdise;
+	SessionManagement session;
+	String name;
+	TextView lblName;
+	String jsonResult;
+	String strcategory = "";
+	Spinner spinner;
+	String category = "";
 
-	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search);
 
 		final Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+		listViewdise = (ListView) findViewById(R.id.listViewItems);
+		session = new SessionManagement(getApplicationContext());
+		HashMap<String, String> user = session.getUserDetails();
+		// name
+		// name = user.get(SessionManagement.KEY_NAME);
+		// lblName.setText(Html.fromHtml("Welcome !!! : <b>" + name + "</b>"));
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
 				this, R.array.category_array,
 				android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);
-
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -64,8 +81,7 @@ public class Search extends Activity {
 
 				category = spinner.getSelectedItem().toString();
 				// Get the data
-				RetrieveData mDoPOST = new RetrieveData(Search.this, category);
-
+				JsonReadTask mDoPOST = new JsonReadTask(Search.this, category);
 				mDoPOST.execute("");
 			}
 
@@ -77,130 +93,149 @@ public class Search extends Activity {
 
 	}
 
-	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-
+		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 
 	}
 
-	protected Dialog onCreateDialog(int id) {
-
-		switch (id) {
-		case DIALOG_DOWNLOAD_PROGRESS:
-			mProgressDialog = new ProgressDialog(this);
-			mProgressDialog.setMessage("Please wait while connecting...");
-			mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-			mProgressDialog.setCancelable(false);
-			mProgressDialog.show();
-			return mProgressDialog;
-		default:
-			return null;
-		}
-	}
-
-	public class RetrieveData extends AsyncTask<String, Void, Boolean> {
+	// Async Task to access the web
+	private class JsonReadTask extends AsyncTask<String, Void, String> {
 
 		Context mContext = null;
-		String strcategory = "";
-
 		// Result data
-		String strFirstName;
-		String strLastName;
-		int intAge;
-		int intPoints;
-		String UserName;
-
 		Exception exception = null;
 
-		RetrieveData(Context context, String nameToSearch) {
+		JsonReadTask(Context context, String nameToSearch) {
+
 			mContext = context;
 			strcategory = nameToSearch;
-
 		}
 
 		protected void onPreExecute() {
 			super.onPreExecute();
-			showDialog(DIALOG_DOWNLOAD_PROGRESS);
+			// showDialog(DIALOG_DOWNLOAD_PROGRESS);
 		}
 
 		@Override
-		protected Boolean doInBackground(String... arg0) {
-			setProgress(50);
+		protected String doInBackground(String... params) {
+
 			try {
-				System.out
-						.println("!!!!!!!!!!!!!!!!mmmmmmmm**********************");
+				System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!mmmmmmmm");
 				// Setup the parameters
 				ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-				nameValuePairs.add(new BasicNameValuePair("category",
-						strcategory));
-
-				// Add more parameters as necessary
-
+				nameValuePairs.add(new BasicNameValuePair("category",strcategory));
 				// Create the HTTP request
 				HttpParams httpParameters = new BasicHttpParams();
 
-				System.out.println("!!!!!!!!!!!!xxxxxxxxxx*******************");
 				// Setup timeouts
-				//HttpConnectionParams
-				//		.setConnectionTimeout(httpParameters, 15000);
-				//HttpConnectionParams.setSoTimeout(httpParameters, 15000);
-				System.out
-						.println("!!!!!!!!!!!!!!aaaaaaaaaaaaaaaaaaaaaaa*********");
+				HttpConnectionParams
+						.setConnectionTimeout(httpParameters, 15000);
+				HttpConnectionParams.setSoTimeout(httpParameters, 15000);
+
 				HttpClient httpclient = new DefaultHttpClient(httpParameters);
-				System.out.println("!!!!!!!!!!!!!!aaaaaaa********");
-				HttpPost httppost = new HttpPost(url1);
-				System.out.println("!!!!!!!!!!!!!!a********");
-				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-				System.out.println("!!!!!!!!!!bbbbbbbbbbbbbbbbbbbbbbbb*******");
+
+				HttpPost httppost = new HttpPost(url5);
+
+				 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
 				HttpResponse response = httpclient.execute(httppost);
 				HttpEntity entity = response.getEntity();
-				System.out.println("!!!!!!!ccccccccccccccccc*****");
-				String result = EntityUtils.toString(entity);
+				System.out.println("comming..kkkkkkkkk");
+				jsonResult = EntityUtils.toString(entity);
 				System.out
 						.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! result entity is - "
-								+ result);
-				// parse json data
-				try {
-					JSONArray jArray = new JSONArray(result);
-					for (int i = 0; i < jArray.length(); i++) {
-						JSONObject json_data = jArray.getJSONObject(i);
-						Log.i("log_tag",
-								"foundItemID: "
-										+ json_data.getInt("foundItemID")
-										+ ", description: "
-										+ json_data.getString("description")
-										+ ",location: "
-										+ json_data.getString("location") +
+								+ jsonResult);
 
-										", color: " + json_data.getInt("color"));
-					}
-
-				} catch (JSONException e) {
-					Log.e("error_log", "Error parsing data " + e.toString());
-				}
-
-			} catch (Exception e) {
-				Log.e("ClientServerDemo", "Error:", e);
-				exception = e;
 			}
 
-			return true;
+			catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
 
-		protected void onProgressUpdate(String... progress) {
-			mProgressDialog.setProgress(Integer.parseInt(progress[0]));
-			setProgress(50);
+		private StringBuilder inputStreamToString(InputStream is) {
+
+			String rLine = "";
+			StringBuilder answer = new StringBuilder();
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+
+			try {
+				while ((rLine = rd.readLine()) != null) {
+					answer.append(rLine);
+				}
+			}
+
+			catch (IOException e) {
+				// e.printStackTrace();
+				Toast.makeText(getApplicationContext(),
+						"Error..." + e.toString(), Toast.LENGTH_LONG).show();
+
+			}
+			return answer;
 		}
 
 		@Override
-		protected void onPostExecute(Boolean valid) {
-			// startActivity(new Intent(MainActivity.this, mainmenu.class));
-			setProgress(100);
-			dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
+		protected void onPostExecute(String result) {
+
+			ListDrwaer();
 
 		}
+	}
+
+	// build hash set for list view
+	public void ListDrwaer() {
+		List<Map<String, String>> itemDetails = new ArrayList<Map<String, String>>();
+
+		try {
+			
+			JSONObject jsonResponse = new JSONObject(jsonResult);
+			JSONArray jsonMainNode = jsonResponse.optJSONArray("disease");
+
+			for (int i = 0; i < jsonMainNode.length(); i++) {
+				JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+				int name = jsonChildNode.optInt("foundItemID");
+				String name1 = jsonChildNode.optString("description");
+				String name2 = jsonChildNode.optString("location");
+				String name3 = jsonChildNode.optString("colour");
+
+				String outPut = "Found ItemID" + "-" + name + "\nDescription"
+						+ "-" + name1 + "\nLocation" + "-" + name2 + "\nColour"
+						+ "-" + name3;
+
+				itemDetails.add(createItem("disease", outPut));
+				System.out.println("output isss :" + outPut);
+			}
+		} catch (JSONException e) {
+			
+			Log.e("error_log", "Error parsing data " + e.toString());
+			//Toast.makeText(getApplicationContext(),
+				//	"Errortree.." + e.toString(), Toast.LENGTH_LONG).show();
+		}
+
+		SimpleAdapter simpleAdapter = new SimpleAdapter(this, itemDetails,
+				android.R.layout.simple_list_item_1,
+				new String[] { "disease" }, new int[] { android.R.id.text1 });
+
+		listViewdise.setAdapter(simpleAdapter);
+
+	}
+
+	private HashMap<String, String> createItem(String name, String name1) {
+		HashMap<String, String> employeeNameNo = new HashMap<String, String>();
+		employeeNameNo.put(name, name1);
+
+		listViewdise.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+
+			}
+		});
+		return employeeNameNo;
 
 	}
 

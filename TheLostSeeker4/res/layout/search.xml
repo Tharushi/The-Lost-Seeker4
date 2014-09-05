@@ -24,14 +24,13 @@
         android:layout_below="@+id/txtdescription"
         android:layout_marginTop="14dp" />
 
-    <TextView
-        android:id="@+id/txtlocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtdescription"
-        android:layout_below="@+id/spinner1"
-        android:layout_marginTop="32dp"
-        android:text="Print all the items in selected category"
-        android:textSize="18sp" />
+    <ListView
+        android:id="@+id/listViewItems"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="26dp" >
+    </ListView>
 
 </RelativeLayout>
