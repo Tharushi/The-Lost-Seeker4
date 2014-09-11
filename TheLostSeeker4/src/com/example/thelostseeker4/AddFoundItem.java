@@ -107,8 +107,8 @@ public class AddFoundItem extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addfounditem);
 		
-		  this.imageView = (ImageView)this.findViewById(R.id.imageView1);
-	        Button photoButton = (Button) this.findViewById(R.id.btncapture);
+		  this.imageView = (ImageView)this.findViewById(R.id.imageView2);
+	        Button photoButton = (Button) this.findViewById(R.id.btngallery);
 	        photoButton.setOnClickListener(new View.OnClickListener() {
 
 	            @Override

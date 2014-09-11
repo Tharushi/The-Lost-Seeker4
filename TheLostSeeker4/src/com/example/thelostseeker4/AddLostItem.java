@@ -36,10 +36,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
@@ -88,7 +92,10 @@ public class AddLostItem extends Activity implements
 	Button btnDate;
 
 	String IMAGE1;
-	String IMAGE2;
+	
+	private String selectedImagePath;
+    private ImageView img;
+    private static final int SELECT_PICTURE = 1;
 
 	String y;
 	String nameget;
@@ -149,6 +156,17 @@ public class AddLostItem extends Activity implements
 
 			}
 		});	
+		img = (ImageView)findViewById(R.id.imageView2);
+		 
+        ((Button) findViewById(R.id.btngallery))
+                .setOnClickListener(new OnClickListener() {
+                    public void onClick(View arg0) {
+                        Intent intent = new Intent();
+                        intent.setType("image/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent,"Select Picture"), SELECT_PICTURE);
+                    }
+                });
 
 
 
@@ -165,7 +183,7 @@ public class AddLostItem extends Activity implements
 				DoPOST mDoPOST = new DoPOST(AddLostItem.this, category
 						.getSelectedItem().toString(), inputdescription
 						.getText().toString(), inputlocation.getText()
-						.toString(), nameget,inputdate.getText().toString());
+						.toString(), nameget,inputdate.getText().toString(),IMAGE1);
 
 				System.out.println("!!nnnnnnnnnn!!!!!!!!!!!!!!!!");
 				mDoPOST.execute("");
@@ -204,6 +222,35 @@ public class AddLostItem extends Activity implements
 			inputdate.setText(my_date);
 		}
 	};
+	
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_PICTURE) {
+                Uri selectedImageUri = data.getData();
+                selectedImagePath = getPath(selectedImageUri);
+                System.out.println("Image Path : " + selectedImagePath);
+                Bitmap photo = BitmapFactory.decodeFile(selectedImagePath);
+                img.setImageBitmap(photo);
+               // Bitmap photo = (Bitmap) data.getExtras().get("data"); 
+	          ByteArrayOutputStream out=new ByteArrayOutputStream();
+			     photo.compress(Bitmap.CompressFormat.PNG,100,out);
+			     byte ByteArr[]=out.toByteArray();
+			     byte[] ba = out.toByteArray();
+               // img.setImageURI(selectedImageUri);
+                
+                IMAGE1 = Base64.encodeToString(ba,Base64.DEFAULT);
+            }
+        }
+    }
+ 
+    public String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -238,7 +285,7 @@ public class AddLostItem extends Activity implements
 		String username = "";
 
 		String imagetosearch1 = IMAGE1;
-		String imagetosearch2 = IMAGE2;
+		
 
 		String strNameofint = y;
 		String getusername = "";
@@ -253,13 +300,14 @@ public class AddLostItem extends Activity implements
 
 		// String NameToSearch1,
 		DoPOST(Context context, String nameToSearch, String NameToSearch1,
-				String NameToSearch2, String NameToSearch3,String NameToSearch4) {
+				String NameToSearch2, String NameToSearch3,String NameToSearch4,String NameToSearch5) {
 			mContext = context;
 			strCategory = nameToSearch;
 			strDescription = NameToSearch1;
 			strLocation = NameToSearch2;
 			username = NameToSearch3;
 			strDate=NameToSearch4;
+			imagetosearch1=NameToSearch5;
 		}
 
 		protected void onPreExecute() {
@@ -287,6 +335,8 @@ public class AddLostItem extends Activity implements
 						.add(new BasicNameValuePair("username", username));
 				nameValuePairs
 				.add(new BasicNameValuePair("date", strDate));
+				nameValuePairs.add(new BasicNameValuePair("image1",
+						imagetosearch1));
 
 				// Add more parameters as necessary
 				System.out.println("!!!!!xxxxxxxxxxxxx!!!!!!!!!!!");
