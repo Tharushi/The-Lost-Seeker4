@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.apache.http.HttpEntity;
@@ -28,6 +29,8 @@ import org.json.JSONObject;
 import com.example.thelostseeker4.ColorPickerDialog.OnColorChangedListener;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -60,13 +63,19 @@ import appsettings.Appsettings;
  * @author Tharushi 110226H
  * 
  */
-public class AddFoundItem extends Activity implements ColorPickerDialog.OnColorChangedListener{
-	private String url4 = "http://" + Appsettings.ipAddress	+ "/mobile/sendmobile.php";
+public class AddFoundItem extends Activity implements
+		ColorPickerDialog.OnColorChangedListener {
+	private String url4 = "http://" + Appsettings.ipAddress
+			+ "/mobile/sendmobile.php";
 
+	private static final int CAMERA_REQUEST = 1888; 
+    private ImageView imageView;
 	Button add = null;
 	Spinner category;
 	TextView inputdescription = null;
 	TextView inputlocation = null;
+	TextView inputdate = null;
+	String IMAGE;
 
 	private int status = 0;
 	protected ProgressBar progBar;
@@ -76,8 +85,10 @@ public class AddFoundItem extends Activity implements ColorPickerDialog.OnColorC
 	Date date;
 	ColorPickerDialog clpicker;
 	private Paint mPaint;
-OnColorChangedListener listener;
-DatePicker dp;
+	OnColorChangedListener listener;
+	DatePicker dp;
+	TextView departDate;
+	Button btnDate;
 
 	String IMAGE1;
 	String IMAGE2;
@@ -95,11 +106,24 @@ DatePicker dp;
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addfounditem);
-		 mPaint = new Paint();
+		
+		  this.imageView = (ImageView)this.findViewById(R.id.imageView1);
+	        Button photoButton = (Button) this.findViewById(R.id.btncapture);
+	        photoButton.setOnClickListener(new View.OnClickListener() {
+
+	            @Override
+	            public void onClick(View v) {
+	                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE); 
+	                startActivityForResult(cameraIntent, CAMERA_REQUEST); 
+	            }
+	        });
+		mPaint = new Paint();
 		// /////////////////////////////////////////////////////
 		// Session class instance
 		session = new SessionManagement(getApplicationContext());
 		TextView lblName = (TextView) findViewById(R.id.lbluser);
+		departDate = (TextView) findViewById(R.id.txtdate);
+		btnDate = (Button) findViewById(R.id.btndate);
 
 		/**
 		 * Call this function whenever you want to check user login This will
@@ -118,29 +142,30 @@ DatePicker dp;
 		nameget = name.toString();
 		// /////////////////////////////////////////////////////
 
-		add = (Button) findViewById(R.id.btnaddfound);
-		 Button addcolor= (Button) findViewById(R.id.btnaddcolor);
-		 TextView txtcol=(TextView) findViewById(R.id.txtcolor);
-		 addcolor.setOnClickListener(new OnClickListener() {
-			
+		add = (Button) findViewById(R.id.btnaddlost);
+		Button addcolor = (Button) findViewById(R.id.btnaddcolor);
+		TextView txtcol = (TextView) findViewById(R.id.txtcolor);
+		addcolor.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View arg0) {
-				clpicker= new ColorPickerDialog(AddFoundItem.this, AddFoundItem.this, mPaint.getColor());
+				clpicker = new ColorPickerDialog(AddFoundItem.this,
+						AddFoundItem.this, mPaint.getColor());
 				clpicker.show();
-				System.out.println("selected color ....."+mPaint.getColor());
-				
+				System.out.println("selected color ....." + mPaint.getColor());
+
 			}
 		});
-		
-		 txtcol.setText(String.valueOf(mPaint.getColor()));
+
+		txtcol.setText(String.valueOf(mPaint.getColor()));
 
 		category = (Spinner) findViewById(R.id.spinner3);
 		inputdescription = (TextView) findViewById(R.id.txtdescrption);
 		inputlocation = (TextView) findViewById(R.id.txtlocation1);
-		 dp=(DatePicker) findViewById(R.id.datePicker);
-		
-		
-		
+		inputdate=(TextView) findViewById(R.id.txtdate);
+
+		// dp=(DatePicker) findViewById(R.id.datePicker);
+
 		// iv1=(ImageView) findViewById(R.id.image1);
 		// iv2=(ImageView) findViewById(R.id.image2);
 
@@ -154,7 +179,7 @@ DatePicker dp;
 				DoPOST mDoPOST = new DoPOST(AddFoundItem.this, category
 						.getSelectedItem().toString(), inputdescription
 						.getText().toString(), inputlocation.getText()
-						.toString(), nameget);
+						.toString(), nameget,inputdate.getText().toString(),IMAGE);
 
 				System.out.println("!!nnnnnnnnnn!!!!!!!!!!!!!!!!");
 				mDoPOST.execute("");
@@ -168,7 +193,43 @@ DatePicker dp;
 			}
 		});
 
+		btnDate.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View arg0) {
+
+				Calendar calender = Calendar.getInstance();
+				Dialog mDialog = new DatePickerDialog(AddFoundItem.this,
+						mDatesetListener, calender.get(Calendar.YEAR), calender
+								.get(Calendar.MONTH), calender
+								.get(Calendar.DAY_OF_MONTH));
+
+				mDialog.show();
+			}
+		});
+
 	}
+	
+	   protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
+	        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {  
+	            Bitmap photo = (Bitmap) data.getExtras().get("data"); 
+	            ByteArrayOutputStream out=new ByteArrayOutputStream();
+			      photo.compress(Bitmap.CompressFormat.PNG,100,out);
+			     // byte ByteArr[]=out.toByteArray();
+			      byte[] ba = out.toByteArray();
+	            imageView.setImageBitmap(photo);
+	            IMAGE = Base64.encodeToString(ba,Base64.DEFAULT);
+	        }  
+	    }
+
+	private DatePickerDialog.OnDateSetListener mDatesetListener = new OnDateSetListener() {
+
+		public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+			arg2 = arg2 + 1;
+
+			String my_date = arg1 + "-" + arg2 + "-" + arg3;
+			departDate.setText(my_date);
+		}
+	};
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -198,10 +259,11 @@ DatePicker dp;
 		String strCategory = "";
 		String strDescription;
 		String strLocation = "";
+		String strDate = "";
 
 		String username = "";
 
-		String imagetosearch1 = IMAGE1;
+		String imagetosearch1 = IMAGE;
 		String imagetosearch2 = IMAGE2;
 
 		String strNameofint = y;
@@ -212,18 +274,19 @@ DatePicker dp;
 		// String strNameAge;
 
 		String strNameIrri;
-		
 
 		Exception exception = null;
 
 		// String NameToSearch1,
 		DoPOST(Context context, String nameToSearch, String NameToSearch1,
-				String NameToSearch2, String NameToSearch3) {
+				String NameToSearch2, String NameToSearch3,String NameToSearch4,String NameToSearch5) {
 			mContext = context;
 			strCategory = nameToSearch;
 			strDescription = NameToSearch1;
 			strLocation = NameToSearch2;
 			username = NameToSearch3;
+			strDate=NameToSearch4;
+			imagetosearch1=NameToSearch5;
 		}
 
 		protected void onPreExecute() {
@@ -249,6 +312,10 @@ DatePicker dp;
 
 				nameValuePairs
 						.add(new BasicNameValuePair("username", username));
+				nameValuePairs
+				.add(new BasicNameValuePair("date", strDate));
+				nameValuePairs.add(new BasicNameValuePair("image1",
+						imagetosearch1));
 
 				// Add more parameters as necessary
 				System.out.println("!!!!!xxxxxxxxxxxxx!!!!!!!!!!!");
@@ -262,9 +329,11 @@ DatePicker dp;
 
 				HttpClient httpclient = new DefaultHttpClient(httpParameters);
 				HttpPost httppost = new HttpPost(url4);
+				// httppost.setHeader("Accept", "application/json");
+				//   httppost.setHeader("Content-type", "application/json");
 				// "http://10.0.2.2/mobilesend.php");
 				// "http://172.16.12.85/mobilesend.php");
-
+				
 
 				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
@@ -277,68 +346,71 @@ DatePicker dp;
 								+ result);
 
 				// Create a JSON object from the request response
-				try{
-				JSONObject jsonObject = new JSONObject(result);
+				try {
+					JSONObject jsonObject = new JSONObject(result);
 
-				// Retrieve the data from the JSON object
-				strNameRice = jsonObject.getString("Result");
+					// Retrieve the data from the JSON object
+					strNameRice = jsonObject.getString("Result");
 
-				String value = strNameRice.trim();
-				int x = Integer.parseInt(value);
-				System.out
-						.println("********************************** result string is "
-								+ x);
-				int test = 1;
-				if (x == test) {
-					System.out.println("!!!aaaaaaaaaaaaaaa!!!!!!!!!!!!");
-					System.out.println("********************** came to pass");
-					status = 1;
-					final Context context = getApplicationContext();
-					final CharSequence text = "Successfully added an Item";
-					final int duration = Toast.LENGTH_LONG;
+					String value = strNameRice.trim();
+					int x = Integer.parseInt(value);
+					System.out
+							.println("********************************** result string is "
+									+ x);
+					int test = 1;
+					if (x == test) {
+						System.out.println("!!!aaaaaaaaaaaaaaa!!!!!!!!!!!!");
+						System.out
+								.println("********************** came to pass");
+						status = 1;
+						final Context context = getApplicationContext();
+						final CharSequence text = "Successfully added an Item";
+						final int duration = Toast.LENGTH_LONG;
 
-					//Toast toast = Toast.makeText(context, text, duration);
-					//toast.show();
-					
-					runOnUiThread(new Runnable() {
-						public void run() {
+						// Toast toast = Toast.makeText(context, text,
+						// duration);
+						// toast.show();
 
-						    Toast.makeText(context, text,duration).show();
-						    }
+						runOnUiThread(new Runnable() {
+							public void run() {
+
+								Toast.makeText(context, text, duration).show();
+							}
 						});
-					startActivity(new Intent(AddFoundItem.this, Main.class));
+						startActivity(new Intent(AddFoundItem.this, Main.class));
 
-				} else {
+					} else {
 
-					System.out.println("!!!!yyyyyyyyyyy!!!!!!!!!!!!!");
-					Context context = getApplicationContext();
-					CharSequence text = "Cant send the problem Details. Try again later!!";
-					int duration = Toast.LENGTH_LONG;
+						System.out.println("!!!!yyyyyyyyyyy!!!!!!!!!!!!!");
+						Context context = getApplicationContext();
+						CharSequence text = "Cant send the problem Details. Try again later!!";
+						int duration = Toast.LENGTH_LONG;
 
-					Toast toast = Toast.makeText(context, text, duration);
-					toast.show();
-					System.out.println("********************* came to fail");
+						Toast toast = Toast.makeText(context, text, duration);
+						toast.show();
+						System.out
+								.println("********************* came to fail");
 
-					status = 0;
+						status = 0;
 
-				}
-				}catch(Exception e){
+					}
+				} catch (Exception e) {
 					final Context context = getApplicationContext();
 					final CharSequence text = "incorect adding of item";
 					final int duration = Toast.LENGTH_LONG;
 
-					//Toast toast = Toast.makeText(context, text, duration);
-					//toast.show();
-					 System.out.println("!!!!!!!!!!!elseee...incorect adding of item");
+					// Toast toast = Toast.makeText(context, text, duration);
+					// toast.show();
+					System.out
+							.println("!!!!!!!!!!!elseee...incorect adding of item");
 					runOnUiThread(new Runnable() {
 						public void run() {
 
-						    Toast.makeText(context, text,duration).show();
-						    }
-						});
+							Toast.makeText(context, text, duration).show();
+						}
+					});
 					Log.e("Fail 3", e.toString());
 				}
-				
 
 			} catch (Exception e) {
 				System.out.println("!!!!qqqqqqqqqqqqq!!!!!!!!!!");
@@ -352,7 +424,7 @@ DatePicker dp;
 		@Override
 		protected void onPostExecute(Boolean valid) {
 			setProgress(100);
-			//removeDialog(DIALOG_DOWNLOAD_PROGRESS);
+			// removeDialog(DIALOG_DOWNLOAD_PROGRESS);
 			dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
 			if (status == 0) {
 				add.setEnabled(true);
@@ -361,13 +433,16 @@ DatePicker dp;
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.example.thelostseeker4.ColorPickerDialog.OnColorChangedListener#colorChanged(int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.example.thelostseeker4.ColorPickerDialog.OnColorChangedListener#
+	 * colorChanged(int)
 	 */
 	@Override
 	public void colorChanged(int color) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

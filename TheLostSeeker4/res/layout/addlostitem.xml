@@ -7,43 +7,91 @@
             android:id="@+id/spinner3"
             style="@style/SpinnerStyle"
             android:layout_width="wrap_content"
-            android:layout_height="65dp"
+            android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="31dp"
             android:entries="@array/category_array" />
 
+        <TextView
+            android:id="@+id/lbluser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/btncapture"
+            android:text="TextView" />
+
         <EditText
             android:id="@+id/txtdescrption"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/spinner3"
-            android:layout_marginTop="19dp"
             android:ems="10"
             android:hint="Description" />
 
         <EditText
             android:id="@+id/txtlocation1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
+            android:layout_below="@+id/txtdescrption"
             android:ems="10"
             android:hint="Location" >
-            
-            
 
             <requestFocus />
         </EditText>
 
         <Button
-            android:id="@+id/btncapturelost"
+            android:id="@+id/btnaddcolor"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/txtlocation1"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="15dp"
+            android:text="Add a Color" />
+
+        <Button
+            android:id="@+id/btnaddlost"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="Add " />
+
+        <Button
+            android:id="@+id/btndate"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/txtdate"
+            android:layout_alignParentLeft="true"
+            android:text="Add Date" />
+
+        <Button
+            android:id="@+id/btncapture"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_above="@+id/btnaddlost"
+            android:layout_alignParentLeft="true"
             android:text="Add a Photo" />
+
+        <TextView
+            android:id="@+id/txtdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btncapture"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="63dp"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/txtcolor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/btnaddcolor"
+            android:layout_alignBottom="@+id/btnaddcolor"
+            android:layout_alignLeft="@+id/txtdate"
+            android:text="TextView" />
        
 </RelativeLayout>

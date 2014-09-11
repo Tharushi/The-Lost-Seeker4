@@ -152,6 +152,7 @@ public class Login extends Activity {
 						strNameToSearch));
 				nameValuePairs.add(new BasicNameValuePair("FirstNameToSearch1",
 						strNameToSearch1));
+				
 
 				// Add more parameters as necessary
 
@@ -178,6 +179,8 @@ public class Login extends Activity {
 				System.out
 						.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! result entity is - "
 								+ result);
+				// httppost.setHeader("Accept", "application/json");
+				//   httppost.setHeader("Content-type", "application/json");
 
 				// Create a JSON object from the request response
 				JSONObject jsonObject = new JSONObject(result);

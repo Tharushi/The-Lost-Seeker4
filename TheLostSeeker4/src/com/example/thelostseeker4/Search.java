@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +46,7 @@ import android.widget.Toast;
 import appsettings.Appsettings;
 
 public class Search extends Activity {
+	long mLastClickedPosition = -1;
 	private String url5 = "http://" + Appsettings.ipAddress
 			+ "/mobile/search.php";
 	ListView listViewdise;
@@ -74,6 +76,7 @@ public class Search extends Activity {
 				android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);
+
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -90,6 +93,22 @@ public class Search extends Activity {
 			}
 
 		});
+		System.out.println("DDDDDDDDDDDDDkkkkkkkkkk before setItemclick");
+
+		listViewdise
+				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+					
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View arg1,
+							int position, long arg3) {
+						System.out.println("!!!!!!!!!!!!!! inside");
+				
+		                Intent intent = new Intent(Search.this, ItemDetails.class);
+		              
+		                startActivity(intent);
+
+					}
+				});
 
 	}
 
@@ -125,7 +144,8 @@ public class Search extends Activity {
 				System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!mmmmmmmm");
 				// Setup the parameters
 				ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-				nameValuePairs.add(new BasicNameValuePair("category",strcategory));
+				nameValuePairs.add(new BasicNameValuePair("category",
+						strcategory));
 				// Create the HTTP request
 				HttpParams httpParameters = new BasicHttpParams();
 
@@ -138,7 +158,7 @@ public class Search extends Activity {
 
 				HttpPost httppost = new HttpPost(url5);
 
-				 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 				HttpResponse response = httpclient.execute(httppost);
 				HttpEntity entity = response.getEntity();
@@ -192,7 +212,7 @@ public class Search extends Activity {
 		List<Map<String, String>> itemDetails = new ArrayList<Map<String, String>>();
 
 		try {
-			
+
 			JSONObject jsonResponse = new JSONObject(jsonResult);
 			JSONArray jsonMainNode = jsonResponse.optJSONArray("disease");
 
@@ -211,10 +231,10 @@ public class Search extends Activity {
 				System.out.println("output isss :" + outPut);
 			}
 		} catch (JSONException e) {
-			
+
 			Log.e("error_log", "Error parsing data " + e.toString());
-			//Toast.makeText(getApplicationContext(),
-				//	"Errortree.." + e.toString(), Toast.LENGTH_LONG).show();
+			// Toast.makeText(getApplicationContext(),
+			// "Errortree.." + e.toString(), Toast.LENGTH_LONG).show();
 		}
 
 		SimpleAdapter simpleAdapter = new SimpleAdapter(this, itemDetails,
