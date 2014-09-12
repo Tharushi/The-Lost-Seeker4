@@ -57,6 +57,11 @@ public class Search extends Activity {
 	String strcategory = "";
 	Spinner spinner;
 	String category = "";
+	Integer nameID ;
+	String named ;
+	String namel ;
+	String namec ;
+	String namedate ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +91,7 @@ public class Search extends Activity {
 				// Get the data
 				JsonReadTask mDoPOST = new JsonReadTask(Search.this, category);
 				mDoPOST.execute("");
+				
 			}
 
 			public void onNothingSelected(AdapterView<?> parentView) {
@@ -93,23 +99,7 @@ public class Search extends Activity {
 			}
 
 		});
-		System.out.println("DDDDDDDDDDDDDkkkkkkkkkk before setItemclick");
-
-		listViewdise
-				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-					
-					@Override
-					public void onItemClick(AdapterView<?> arg0, View arg1,
-							int position, long arg3) {
-						System.out.println("!!!!!!!!!!!!!! inside");
-				
-		                Intent intent = new Intent(Search.this, ItemDetails.class);
-		              
-		                startActivity(intent);
-
-					}
-				});
-
+		
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -218,17 +208,20 @@ public class Search extends Activity {
 
 			for (int i = 0; i < jsonMainNode.length(); i++) {
 				JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-				int name = jsonChildNode.optInt("foundItemID");
-				String name1 = jsonChildNode.optString("description");
-				String name2 = jsonChildNode.optString("location");
-				String name3 = jsonChildNode.optString("colour");
+				 nameID = jsonChildNode.optInt("foundItemID");
+				 named = jsonChildNode.optString("description");
+				 namel = jsonChildNode.optString("location");
+				 namec = jsonChildNode.optString("colour");
+				 namedate = jsonChildNode.optString("Found date");
 
-				String outPut = "Found ItemID" + "-" + name + "\nDescription"
-						+ "-" + name1 + "\nLocation" + "-" + name2 + "\nColour"
-						+ "-" + name3;
+				String outPut = "Found ItemID" + "-" + nameID + "\nDescription"
+						+ "-" + named + "\nLocation" + "-" + namel + "\nColour"
+						+ "-" + namec;
 
 				itemDetails.add(createItem("disease", outPut));
-				System.out.println("output isss :" + outPut);
+				System.out.println("output isss :" + outPut+" i = "+i);
+				
+				
 			}
 		} catch (JSONException e) {
 
@@ -248,12 +241,26 @@ public class Search extends Activity {
 	private HashMap<String, String> createItem(String name, String name1) {
 		HashMap<String, String> employeeNameNo = new HashMap<String, String>();
 		employeeNameNo.put(name, name1);
-
+	
 		listViewdise.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
+		        TextView c = (TextView) view; //<--this one 
+		        String text = c.getText().toString();
+		        Bundle b = new Bundle();
+		        b.putString("details", text);
+		        Intent intent = new Intent(Search.this, ItemDetails.class);
+		        intent.putExtras(b);  
+                startActivity(intent);
+		        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+						   
+				
+				System.out.println("!!!!!!!!!!!!!! inside");
+			
+
 			}
+			
 		});
 		return employeeNameNo;
 

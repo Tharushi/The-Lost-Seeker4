@@ -114,7 +114,7 @@ public class AddLostItem extends Activity implements
 		// /////////////////////////////////////////////////////
 		// Session class instance
 		session = new SessionManagement(getApplicationContext());
-		TextView lblName = (TextView) findViewById(R.id.lbluser);
+		TextView lblName = (TextView) findViewById(R.id.txtuser);
 
 		add = (Button) findViewById(R.id.btnaddlost);
 		Button addcolor = (Button) findViewById(R.id.btnaddcolor);

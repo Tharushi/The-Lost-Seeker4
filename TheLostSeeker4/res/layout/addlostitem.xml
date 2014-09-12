@@ -14,7 +14,7 @@
             android:entries="@array/category_array" />
 
         <TextView
-            android:id="@+id/lbluser"
+            android:id="@+id/txtuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"

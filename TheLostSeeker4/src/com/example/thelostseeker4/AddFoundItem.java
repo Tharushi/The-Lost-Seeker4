@@ -121,7 +121,7 @@ public class AddFoundItem extends Activity implements
 		// /////////////////////////////////////////////////////
 		// Session class instance
 		session = new SessionManagement(getApplicationContext());
-		TextView lblName = (TextView) findViewById(R.id.lbluser);
+		TextView lblName = (TextView) findViewById(R.id.txtuser);
 		departDate = (TextView) findViewById(R.id.txtdate);
 		btnDate = (Button) findViewById(R.id.btndate);
 
