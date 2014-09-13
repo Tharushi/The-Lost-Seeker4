@@ -199,11 +199,25 @@ public class Login extends Activity {
 								+ x);
 				int test = 1;
 				if (x == test) {
+					
+					if(!editTextSearchString1
+							.getText().toString().equals("admin")){
 					System.out.println("********************** came to pass");
 					status = 1;
 					session.createLoginSession(UserName);
 					startActivity(new Intent(Login.this, Main.class));
 					finish();
+					
+					}else{
+						status = 1;
+						session.createLoginSession(UserName);
+						startActivity(new Intent(Login.this, AdminMain.class));
+						finish();
+						
+						
+						}
+					
+					
 				} else {
 					System.out.println("User name or password incorrect");
 					final Context context = getApplicationContext();

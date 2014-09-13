@@ -88,7 +88,7 @@ public class Search extends Activity {
 		final Spinner spinner = (Spinner) findViewById(R.id.spinner1);
 		listViewdise = (ListView) findViewById(R.id.listViewItems);
 		session = new SessionManagement(getApplicationContext());
-		iv=(ImageView) findViewById(R.id.ivphoto);
+		
 		HashMap<String, String> user = session.getUserDetails();
 		// name
 		// name = user.get(SessionManagement.KEY_NAME);
@@ -222,7 +222,7 @@ public class Search extends Activity {
 	// build hash set for list view
 	public void ListDrwaer() throws IOException {
 		List<Map<String, String>> itemDetails = new ArrayList<Map<String, String>>();
-		iv=(ImageView) findViewById(R.id.ivphoto);
+		
 		Date Date = null;
 		try {
 
@@ -235,23 +235,18 @@ public class Search extends Activity {
 				 named = jsonChildNode.optString("description");
 				 namel = jsonChildNode.optString("location");
 				 namec = jsonChildNode.optString("colour");
+				 photourl=jsonChildNode.optString("photo");
 				// namedate = jsonChildNode.optString("FoundDate");
 				 
 				// String dateStr = jsonChildNode.opt("FoundDate").toString();
 				// System.out.println("date isss:" +dateStr);
-				// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			
+				// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");			
 				// Date = sdf.parse(dateStr);
 				
-				 //then
 			
-				 photourl=jsonChildNode.optString("photo");
-			
-			
-
-				String outPut = "Found ItemID" + "-" + nameID + "\nDescription"
+			String outPut = "Found ItemID" + "-" + nameID + "\nDescription"
 						+ "-" + named + "\nLocation" + "-" + namel + "\nColour"
-						+ "-" + namec+ "\nDate"+"-"+Date+"\nPhoto"+photourl;
+						+ "-" + namec+ "\nDate"+"-"+Date+"\nPhoto"+"-"+photourl;
 
 			itemDetails.add(createItem("disease", outPut));
 			//loadImage("http://"+ Appsettings.ipAddress
@@ -289,12 +284,14 @@ public class Search extends Activity {
 		        Bundle b = new Bundle();
 		        b.putString("details", text);
 		        b.putString("photourl", photourl);
+		        b.putString("founditemID",nameID.toString());
+		       
 		        Intent intent = new Intent(Search.this, ItemDetails.class);
 		        intent.putExtras(b);  
                 startActivity(intent);
 		        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-						   
-				
+		    		   
+			
 				System.out.println("!!!!!!!!!!!!!! inside");
 			
 

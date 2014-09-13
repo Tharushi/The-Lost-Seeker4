@@ -11,6 +11,14 @@
             backward-compatibility can go here.
         -->
     </style>
+    <!-- res/values/styles.xml -->
+<style name="ListView" parent="@android:style/Widget.ListView">
+    <item name="android:background">@color/light_grey</item>
+    <item name="android:cacheColorHint">@android:color/transparent</item>
+    <item name="android:divider">@android:color/transparent</item>
+    <item name="android:dividerHeight">0dp</item>
+   
+</style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
