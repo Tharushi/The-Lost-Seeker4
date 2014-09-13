@@ -4,10 +4,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+
+import javax.crypto.spec.IvParameterSpec;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -29,8 +39,11 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -38,6 +51,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
@@ -62,6 +76,8 @@ public class Search extends Activity {
 	String namel ;
 	String namec ;
 	String namedate ;
+	String photourl;
+	ImageView iv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +88,7 @@ public class Search extends Activity {
 		final Spinner spinner = (Spinner) findViewById(R.id.spinner1);
 		listViewdise = (ListView) findViewById(R.id.listViewItems);
 		session = new SessionManagement(getApplicationContext());
+		iv=(ImageView) findViewById(R.id.ivphoto);
 		HashMap<String, String> user = session.getUserDetails();
 		// name
 		// name = user.get(SessionManagement.KEY_NAME);
@@ -192,15 +209,21 @@ public class Search extends Activity {
 		@Override
 		protected void onPostExecute(String result) {
 
-			ListDrwaer();
+			try {
+				ListDrwaer();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		}
 	}
 
 	// build hash set for list view
-	public void ListDrwaer() {
+	public void ListDrwaer() throws IOException {
 		List<Map<String, String>> itemDetails = new ArrayList<Map<String, String>>();
-
+		iv=(ImageView) findViewById(R.id.ivphoto);
+		Date Date = null;
 		try {
 
 			JSONObject jsonResponse = new JSONObject(jsonResult);
@@ -212,13 +235,28 @@ public class Search extends Activity {
 				 named = jsonChildNode.optString("description");
 				 namel = jsonChildNode.optString("location");
 				 namec = jsonChildNode.optString("colour");
-				 namedate = jsonChildNode.optString("Found date");
+				// namedate = jsonChildNode.optString("FoundDate");
+				 
+				// String dateStr = jsonChildNode.opt("FoundDate").toString();
+				// System.out.println("date isss:" +dateStr);
+				// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			
+				// Date = sdf.parse(dateStr);
+				
+				 //then
+			
+				 photourl=jsonChildNode.optString("photo");
+			
+			
 
 				String outPut = "Found ItemID" + "-" + nameID + "\nDescription"
 						+ "-" + named + "\nLocation" + "-" + namel + "\nColour"
-						+ "-" + namec;
+						+ "-" + namec+ "\nDate"+"-"+Date+"\nPhoto"+photourl;
 
-				itemDetails.add(createItem("disease", outPut));
+			itemDetails.add(createItem("disease", outPut));
+			//loadImage("http://"+ Appsettings.ipAddress
+			//		+ "/mobileimages/pic1img20140913022803.png");
+		
 				System.out.println("output isss :" + outPut+" i = "+i);
 				
 				
@@ -250,6 +288,7 @@ public class Search extends Activity {
 		        String text = c.getText().toString();
 		        Bundle b = new Bundle();
 		        b.putString("details", text);
+		        b.putString("photourl", photourl);
 		        Intent intent = new Intent(Search.this, ItemDetails.class);
 		        intent.putExtras(b);  
                 startActivity(intent);
@@ -265,5 +304,7 @@ public class Search extends Activity {
 		return employeeNameNo;
 
 	}
+	
+	
 
 }
