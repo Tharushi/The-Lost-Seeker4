@@ -2,7 +2,10 @@
  * 
  */
 package com.example.thelostseeker4;
-
+/**
+ * @author Tharushi 110226H
+ * 
+ */
 import java.io.ByteArrayOutputStream;
 import java.sql.Date;
 import java.text.ParseException;

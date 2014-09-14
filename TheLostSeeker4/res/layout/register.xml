@@ -5,26 +5,6 @@
     android:background="@drawable/android"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:text="Register to  The Lost Seeker"
-        android:textColor="#000000" />
-
-    <TextView
-        android:id="@+id/txtlocation"
-        android:layout_width="125dp"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView"
-        android:text="First Name"
-        android:textColor="#000000"
-        android:textSize="15dp" />
-
     <EditText
         android:id="@+id/txtfname"
         android:layout_width="200dp"
@@ -35,15 +15,6 @@
         android:textColor="#000000"
         android:textSize="15dp" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="125dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/txtlocation"
-        android:text="Last Name"
-        android:textColor="#000000"
-        android:textSize="15dp" />
-
     <EditText
         android:id="@+id/txtlname"
         android:layout_width="200dp"
@@ -51,58 +22,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/textView3"
         android:hint="Last Name"
-        android:textColor="#000000"
-        android:textSize="15dp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="125dp"
-        android:layout_height="40dp"
-        android:layout_alignRight="@+id/textView3"
-        android:layout_below="@+id/textView3"
-        android:text="Email"
-        android:textColor="#000000"
-        android:textSize="15dp" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="125dp"
-        android:layout_height="40dp"
-        android:layout_alignRight="@+id/textView4"
-        android:layout_below="@+id/textView4"
-        android:text="Username"
-        android:textColor="#000000"
-        android:textSize="15dp" />
-
-    <EditText
-        android:id="@+id/txtuname"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textView5"
-        android:hint="Username"
-        android:textColor="#000000"
-        android:textSize="15dp" />
-
-    <EditText
-        android:id="@+id/txtpword"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_alignLeft="@+id/txtuname"
-        android:layout_below="@+id/textView5"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:textColor="#000000"
-        android:textSize="15dp" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="125dp"
-        android:layout_height="40dp"
-        android:layout_alignRight="@+id/textView5"
-        android:layout_alignTop="@+id/txtpword"
-        android:text="Password"
         android:textColor="#000000"
         android:textSize="15dp" />
 
@@ -137,7 +56,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="17dp"
         android:text="Register"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textSize="13dp" />
 
     <EditText
@@ -152,13 +71,116 @@
         android:textColor="#000000"
         android:textSize="15dp" />
 
+    <EditText
+        android:id="@+id/txtpword"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/textView6"
+        android:layout_alignBottom="@+id/textView6"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/adduser" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imageView1"
+        android:text="Register to  The Lost Seeker"
+        android:textColor="#000000"
+        android:textSize="@dimen/activity_horizontal_margin" />
+
+    <TextView
+        android:id="@+id/txtlocation"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/imageView1"
+        android:text="First Name"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/txtfname"
+        android:text="Last Name"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/txtlname"
+        android:text="Email"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/txtemail"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textView4"
+        android:ems="10"
+        android:hint="Email"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/txtuname"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/textView5"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:hint="Username"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView4"
+        android:text="Username"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView5"
+        android:text="Password"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
     <TextView
         android:id="@+id/TextView01"
         android:layout_width="125dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/txtpword"
-        android:layout_marginTop="14dp"
+        android:layout_below="@+id/textView6"
         android:text="Telephone"
         android:textColor="#000000"
         android:textSize="15dp" />
@@ -170,17 +192,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/TextView01"
         android:text="Address"
-        android:textColor="#000000"
-        android:textSize="15dp" />
-
-    <EditText
-        android:id="@+id/txtemail"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_above="@+id/textView5"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:hint="Email"
         android:textColor="#000000"
         android:textSize="15dp" />
 

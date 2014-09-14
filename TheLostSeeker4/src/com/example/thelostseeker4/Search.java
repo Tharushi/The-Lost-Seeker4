@@ -1,5 +1,8 @@
 package com.example.thelostseeker4;
-
+/**
+ * @author Tharushi 110226H
+ * 
+ */
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -174,6 +177,7 @@ public class Search extends Activity {
 				System.out
 						.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! result entity is - "
 								+ jsonResult);
+					
 
 			}
 
@@ -246,13 +250,14 @@ public class Search extends Activity {
 			
 			String outPut = "Found ItemID" + "-" + nameID + "\nDescription"
 						+ "-" + named + "\nLocation" + "-" + namel + "\nColour"
-						+ "-" + namec+ "\nDate"+"-"+Date+"\nPhoto"+"-"+photourl;
+						+ "-" + namec+ "\nDate"+"-"+Date+"\n\nPhoto"+"-"+photourl;
 
 			itemDetails.add(createItem("disease", outPut));
 			//loadImage("http://"+ Appsettings.ipAddress
 			//		+ "/mobileimages/pic1img20140913022803.png");
 		
 				System.out.println("output isss :" + outPut+" i = "+i);
+				
 				
 				
 			}

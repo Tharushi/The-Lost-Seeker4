@@ -1,5 +1,8 @@
 package com.example.thelostseeker4;
-
+/**
+ * @author Tharushi 110226H
+ * 
+ */
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;

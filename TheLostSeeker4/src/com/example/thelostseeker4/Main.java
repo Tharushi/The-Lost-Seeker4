@@ -1,18 +1,22 @@
 package com.example.thelostseeker4;
-
+/**
+ * @author Tharushi 110226H
+ * 
+ */
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.HashMap;
 
 import com.example.thelostseeker4.*;
-import com.example.thelostseeker4.SessionManagement;
 
 public class Main extends Activity {
 
@@ -28,6 +32,7 @@ public class Main extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		   final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
 		// /////////////////////////////////////////////////////
 	
 		// Session class instance
@@ -60,6 +65,7 @@ public class Main extends Activity {
 				// Clear the session data
 				// This will clear all session data and
 				// redirect user to LoginActivity
+				arg0.startAnimation(animAlpha);
 				session.logoutUser();
 			}
 		});
@@ -69,13 +75,14 @@ public class Main extends Activity {
 		Button search = (Button) findViewById(R.id.btnsearch);
 		Button addfound = (Button) findViewById(R.id.btnaddfounditem);
 		Button addlost = (Button) findViewById(R.id.btnaddlostitem);
-		changepas = (Button) findViewById(R.id.btchangepass);
+		
 		btnLogout = (Button) findViewById(R.id.btnlogout);
 		search.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+				arg0.startAnimation(animAlpha);
 				startActivity(new Intent(Main.this, Search.class));
 			}
 		});
@@ -84,6 +91,7 @@ public class Main extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+				arg0.startAnimation(animAlpha);
 
 				startActivity(new Intent(Main.this, AddFoundItem.class));
 			}
@@ -94,6 +102,7 @@ public class Main extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+				arg0.startAnimation(animAlpha);
 
 				startActivity(new Intent(Main.this, AddLostItem.class));
 			}
