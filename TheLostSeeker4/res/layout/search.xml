@@ -31,7 +31,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/spinner1"
         android:dividerHeight="1dp"
-        android:listSelector="@drawable/list_selector_flatcolor" >
+         >
 
     </ListView>
 

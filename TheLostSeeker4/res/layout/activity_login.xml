@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/android"
+    android:gravity="center"
     android:orientation="vertical" >
 
     <TextView
@@ -13,66 +14,76 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:text="Welcome to The Lost Seeker"
-        android:textColor="#000000" />
-
-    <EditText
-        android:id="@+id/txtusername"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView"
-        android:hint="Username"
         android:textColor="#000000"
-        android:textSize="15dp" />
-
-    <Button
-        android:id="@+id/loginbtn"
-        android:layout_width="170dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/registerbtn"
-        android:text="Login"
-        android:textColor="#000000"
-        android:textSize="13dp" />
+        android:textSize="@dimen/fontwelcome" />
 
     <Button
         android:id="@+id/registerbtn"
         android:layout_width="220dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/txtpword"
-        android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@+id/loginbtn"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="40dp"
         android:text="Register"
         android:textColor="#000000"
         android:textSize="13dp" />
 
-    <TextView
-        android:id="@+id/loginErrorMsg"
-        android:layout_width="fill_parent"
-        android:layout_height="56dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/passres"
-        android:textColor="#000000" />
-
-    <TextView
-        android:id="@+id/txtlocation"
-        android:layout_width="200dp"
+    <Button
+        android:id="@+id/loginbtn"
+        android:layout_width="170dp"
         android:layout_height="40dp"
-        android:layout_alignTop="@+id/txtusername"
-        android:layout_toLeftOf="@+id/textView"
-        android:text="User Name"
+        android:layout_above="@+id/registerbtn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="28dp"
+        android:text="Login"
         android:textColor="#000000"
-        android:textSize="15dp" />
+        android:textSize="13dp" />
 
     <EditText
         android:id="@+id/txtpword"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_alignLeft="@+id/txtusername"
-        android:layout_below="@+id/txtusername"
+        android:layout_alignBaseline="@+id/pworda"
+        android:layout_alignBottom="@+id/pworda"
+        android:layout_alignParentRight="true"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        android:textColor="#000000"
+        android:textSize="15dp" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/txtusername"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/txtlocation"
+        android:layout_alignBottom="@+id/txtlocation"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:hint="Username"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="300dp"
+        android:layout_height="170dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/image4" />
+
+    <TextView
+        android:id="@+id/txtlocation"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="User Name"
         android:textColor="#000000"
         android:textSize="15dp" />
 
@@ -80,21 +91,10 @@
         android:id="@+id/pworda"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/txtpword"
-        android:layout_alignRight="@+id/txtlocation"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/txtlocation"
         android:text="Password"
         android:textColor="#000000"
         android:textSize="15dp" />
-
-    <Button
-        android:id="@+id/passres"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/loginbtn"
-        android:text="Forgot Password"
-        android:textColor="#000000"
-        android:textSize="13dp" />
 
 </RelativeLayout>

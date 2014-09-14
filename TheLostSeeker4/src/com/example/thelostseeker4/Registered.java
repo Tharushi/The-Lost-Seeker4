@@ -19,7 +19,7 @@ public class Registered extends Activity {
 
 	
 
-		Button login = (Button) findViewById(R.id.loginbtn);
+		Button login = (Button) findViewById(R.id.loginbt);
 		login.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
