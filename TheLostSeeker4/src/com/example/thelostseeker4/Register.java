@@ -274,7 +274,7 @@ public class Register extends Activity {
 					}
 				}catch(Exception e){
 					final Context context = getApplicationContext();
-					final CharSequence text = "Existing  user name";
+					final CharSequence text = "Incorrect registration OR Existing  user name";
 					final int duration = Toast.LENGTH_LONG;
 
 					//Toast toast = Toast.makeText(context, text, duration);

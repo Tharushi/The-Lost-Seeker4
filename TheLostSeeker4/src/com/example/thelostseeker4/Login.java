@@ -82,13 +82,6 @@ public class Login extends Activity {
 				DoPOST mDoPOST = new DoPOST(Login.this, editTextSearchString1
 						.getText().toString(), editTextSearchString2.getText()
 						.toString());
-
-				System.out.println("!!!!!!!!!!!!!!!!1**********************"
-						+ editTextSearchString1.getText().toString());
-				System.out
-						.println("!!!!!!!!!!!!!!!!!!!!!!!**********************"
-								+ editTextSearchString2.getText().toString());
-
 				mDoPOST.execute("");
 				getData.setEnabled(false);
 			}

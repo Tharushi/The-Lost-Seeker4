@@ -3,10 +3,8 @@
  */
 package com.example.thelostseeker4;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,6 +14,7 @@ import java.util.HashMap;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -25,38 +24,32 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.example.thelostseeker4.AddFoundItem.DoPOST;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.text.Html;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import appsettings.Appsettings;
 
 /**
  * @author Tharushi 110226H
  * 
  */
-public class ItemDetails extends Activity {
-	private String url4 = "http://" + Appsettings.ipAddress
-			+ "/mobile/claimitem.php";
+public class AdminViewPhoto extends Activity {
+	private String url5 = "http://" + Appsettings.ipAddress
+			+ "/mobile/getAddedUser.php";
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -66,11 +59,15 @@ public class ItemDetails extends Activity {
 	SessionManagement session;
 	String nameget;
 	ImageView iv;
-	String foundd;
-
+	String photourl = null;
+	String founditemsID = null;
 	String newurl;
 	String image_location;
-	Button cl;
+	Button contact;
+	String user;
+	String jsonResult;
+	String contactNo;
+
 	private int status = 0;
 	protected ProgressBar progBar;
 	public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
@@ -81,14 +78,15 @@ public class ItemDetails extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.itemdetails);
+		setContentView(R.layout.adminviewphoto);
 
 		// Session class instance
 		session = new SessionManagement(getApplicationContext());
 		TextView lblName = (TextView) findViewById(R.id.txtuser);
 		TextView itemdetails = (TextView) findViewById(R.id.txtitem);
 		iv = (ImageView) findViewById(R.id.ivitem);
-		cl = (Button) findViewById(R.id.btncontact);
+		contact=(Button) findViewById(R.id.btncontact);
+	
 		/**
 		 * Call this function whenever you want to check user login This will
 		 * redirect user to LoginActivity is he is not logged in
@@ -105,54 +103,37 @@ public class ItemDetails extends Activity {
 
 		nameget = name.toString();
 		String founditem = null;
-		String photourl = null;
-		String founditemsID = null;
+		String addeduser = null;
+		String colour = null;
 
 		Bundle b = getIntent().getExtras();
 		if (b != null) {
 			founditem = b.getString("details");
 			photourl = b.getString("photourl");
 			founditemsID = b.getString("founditemID");
-			// photourl = (String) b.get("photourl");
-			foundd = founditemsID;
+			addeduser = b.getString("addeduser");
+			
 			/*
 			 * founditemID = b.getString("foundItemID"); location =
 			 * b.getString("location"); description =
 			 * b.getString("description"); colour = b.getString("colour"); date
 			 * = b.getString("datetime");
 			 */
-			System.out.println("found item ID!!!!!!!!!!!: " + founditemsID);
+			System.out.println("user isssssss : " + addeduser);
 			newurl = photourl.substring(3);
-			System.out
-					.println("founditem text!!!!!!!!!!!!!!!!! : " + founditem);
 			System.out.println("newww  photourl isssssss : " + newurl);
 			image_location = "http://" + Appsettings.ipAddress + "/" + newurl;
 			itemdetails.setText(Html.fromHtml("item  <b>\n" + founditem));
-			JsonRead mDoPOST = new JsonRead(ItemDetails.this);
+			JsonRead mDoPOST = new JsonRead(AdminViewPhoto.this);
 			mDoPOST.execute("");
-			cl.setOnClickListener(new OnClickListener() {
+			JsonReadTask getuser= new JsonReadTask(AdminViewPhoto.this, addeduser);
+			getuser.execute("");
 
-				@Override
-				public void onClick(View arg0) {
-					// TODO Auto-generated method stub
-					POSTClaim mPOSTClaim = new POSTClaim(ItemDetails.this,
-							foundd, nameget);
-
-					System.out.println("!!nnnnnnnnnn!!!!!!!!!!!!!!!!");
-					mPOSTClaim.execute("");
-					String messageToSend = "User : "+nameget+" has claimed an Item ";
-					String number = "0779829613";
-
-					SmsManager.getDefault().sendTextMessage(number, null,
-							messageToSend, null, null);
-					cl.setEnabled(false);
-
-				}
-			});
 		}
+	
+	
 
 	}
-
 	private class JsonRead extends AsyncTask<String, Void, String> {
 		Bitmap bitmap;
 		Context mContext = null;
@@ -207,7 +188,6 @@ public class ItemDetails extends Activity {
 
 		}
 	}
-
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
 		case DIALOG_DOWNLOAD_PROGRESS:
@@ -221,53 +201,33 @@ public class ItemDetails extends Activity {
 			return null;
 		}
 	}
-
-	public class POSTClaim extends AsyncTask<String, Void, Boolean> {
+	// Async Task to access the web
+	private class JsonReadTask extends AsyncTask<String, Void, String> {
 
 		Context mContext = null;
-		String strUserID = "";
-		String strFounditemID;
-		String strDate = "";
-		String username = "";
-		String getusername = "";
 		// Result data
-		String strNameRice;
-		// String strNameAge;
-
 		Exception exception = null;
 
-		POSTClaim(Context context, String NameToSearch1, String NameToSearch2) {
-			mContext = context;
-			strFounditemID = NameToSearch1;
-			username = NameToSearch2;
-			// strDate=NameToSearch4;
+		JsonReadTask(Context context, String nameToSearch) {
 
+			mContext = context;
+			user = nameToSearch;
 		}
 
 		protected void onPreExecute() {
 			super.onPreExecute();
-			showDialog(DIALOG_DOWNLOAD_PROGRESS);
-
+			// showDialog(DIALOG_DOWNLOAD_PROGRESS);
 		}
 
 		@Override
-		protected Boolean doInBackground(String... arg0) {
-			setProgress(50);
+		protected String doInBackground(String... params) {
+
 			try {
-				System.out.println("cameeeeeeeeeee");
+				System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!mmmmmmmm");
 				// Setup the parameters
 				ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-
-				nameValuePairs.add(new BasicNameValuePair("founditemID",
-						strFounditemID));
-
-				nameValuePairs
-						.add(new BasicNameValuePair("username", username));
-				// nameValuePairs
-				// .add(new BasicNameValuePair("date", strDate));
-
-				// Add more parameters as necessary
-				System.out.println("!!!!!xxxxxxxxxxxxx!!!!!!!!!!!");
+				nameValuePairs.add(new BasicNameValuePair("userid",
+						user));
 				// Create the HTTP request
 				HttpParams httpParameters = new BasicHttpParams();
 
@@ -277,94 +237,51 @@ public class ItemDetails extends Activity {
 				HttpConnectionParams.setSoTimeout(httpParameters, 15000);
 
 				HttpClient httpclient = new DefaultHttpClient(httpParameters);
-				HttpPost httppost = new HttpPost(url4);
+
+				HttpPost httppost = new HttpPost(url5);
+
 				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 				HttpResponse response = httpclient.execute(httppost);
 				HttpEntity entity = response.getEntity();
-
-				String result = EntityUtils.toString(entity);
+				System.out.println("comming..kkkkkkkkk");
+				jsonResult = EntityUtils.toString(entity);
 				System.out
 						.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! result entity is - "
-								+ result);
-
-				// Create a JSON object from the request response
+								+ jsonResult);
 				try {
-					JSONObject jsonObject = new JSONObject(result);
-
-					// Retrieve the data from the JSON object
-					strNameRice = jsonObject.getString("Result");
-
-					String value = strNameRice.trim();
-					int x = Integer.parseInt(value);
-					System.out
-							.println("********************************** result string is "
-									+ x);
-					int test = 1;
-					if (x == test) {
-						status = 1;
-						final Context context = getApplicationContext();
-						final CharSequence text = "Successfully Send your Claim";
-						final int duration = Toast.LENGTH_LONG;
-						runOnUiThread(new Runnable() {
-							public void run() {
-
-								Toast.makeText(context, text, duration).show();
-							}
-						});
-						startActivity(new Intent(ItemDetails.this, Search.class));
-
-					} else {
-
-						Context context = getApplicationContext();
-						CharSequence text = "You Already claimed this Item!!";
-						int duration = Toast.LENGTH_LONG;
-
-						Toast toast = Toast.makeText(context, text, duration);
-						toast.show();
-						System.out
-								.println("********************* came to fail");
-
-						status = 0;
-
-					}
-				} catch (Exception e) {
-					final Context context = getApplicationContext();
-					final CharSequence text = "You Already claimed this Item!!";
-					final int duration = Toast.LENGTH_LONG;
-
-					// Toast toast = Toast.makeText(context, text, duration);
-					// toast.show();
-					System.out
-							.println("!!!!!!!!!!!elseee...incorect adding of item");
-					runOnUiThread(new Runnable() {
-						public void run() {
-
-							Toast.makeText(context, text, duration).show();
-						}
-					});
-					Log.e("Fail 3", e.toString());
+					JSONObject jsonResponse = new JSONObject(jsonResult);
+					 contactNo = jsonResponse.optString("firstName");
+					 System.out.println("contact no!!!!!!!!!!!!!!!!!!!!!"+contactNo);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 
-			} catch (Exception e) {
-				System.out.println("!!!!qqqqqqqqqqqqq!!!!!!!!!!");
-				Log.e("ClientServerDemo", "Error:", e);
-				exception = e;
 			}
 
-			return true;
+			catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
 
+	
 		@Override
-		protected void onPostExecute(Boolean valid) {
-			setProgress(100);
-			// removeDialog(DIALOG_DOWNLOAD_PROGRESS);
-			dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
-			if (status == 0) {
-				cl.setEnabled(true);
+		protected void onPostExecute(String result) {
+
+			try {
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 		}
 	}
+	
+	
 
 }

@@ -5,26 +5,6 @@
     android:background="@drawable/android"
     android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/txtfname"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/txtlocation"
-        android:hint="First Name"
-        android:textColor="#000000"
-        android:textSize="15dp" />
-
-    <EditText
-        android:id="@+id/txtlname"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textView3"
-        android:hint="Last Name"
-        android:textColor="#000000"
-        android:textSize="15dp" />
-
     <TextView
         android:id="@+id/register_error"
         android:layout_width="fill_parent"
@@ -32,21 +12,6 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/btnregister"
         android:textColor="#000000" />
-
-    <EditText
-        android:id="@+id/txttelephone"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_alignBaseline="@+id/TextView01"
-        android:layout_alignBottom="@+id/TextView01"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:hint="Telephone"
-        android:textColor="#000000"
-        android:textSize="15dp" >
-
-        <requestFocus />
-    </EditText>
 
     <Button
         android:id="@+id/btnregister"
@@ -58,31 +23,6 @@
         android:text="Register"
         android:textColor="#FFFFFF"
         android:textSize="13dp" />
-
-    <EditText
-        android:id="@+id/txtaddress"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_alignBaseline="@+id/TextView02"
-        android:layout_alignBottom="@+id/TextView02"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:hint="Address"
-        android:textColor="#000000"
-        android:textSize="15dp" />
-
-    <EditText
-        android:id="@+id/txtpword"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_alignBaseline="@+id/textView6"
-        android:layout_alignBottom="@+id/textView6"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:textColor="#000000"
-        android:textSize="15dp" />
 
     <ImageView
         android:id="@+id/imageView1"
@@ -132,14 +72,51 @@
         android:textColor="#000000"
         android:textSize="15dp" />
 
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView5"
+        android:text="Password"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
     <EditText
-        android:id="@+id/txtemail"
+        android:id="@+id/txtfname"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/txtlocation"
+        android:layout_alignBottom="@+id/txtlocation"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:hint="First Name"
+        android:textColor="#000000"
+        android:textSize="15dp" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/txtaddress"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textView4"
+        android:layout_alignTop="@+id/TextView02"
         android:ems="10"
-        android:hint="Email"
+        android:hint="Address"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/txtpword"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView5"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
         android:textColor="#000000"
         android:textSize="15dp" />
 
@@ -147,12 +124,22 @@
         android:id="@+id/txtuname"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_alignBaseline="@+id/textView5"
-        android:layout_alignBottom="@+id/textView5"
         android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textView5"
         android:ems="10"
         android:hint="Username"
         android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/txttelephone"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/txtaddress"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:hint="Telephone No"
+        android:inputType="phone"
         android:textSize="15dp" />
 
     <TextView
@@ -166,12 +153,12 @@
         android:textSize="15dp" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/TextView02"
         android:layout_width="125dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView5"
-        android:text="Password"
+        android:layout_below="@+id/TextView01"
+        android:text="Address"
         android:textColor="#000000"
         android:textSize="15dp" />
 
@@ -185,14 +172,27 @@
         android:textColor="#000000"
         android:textSize="15dp" />
 
-    <TextView
-        android:id="@+id/TextView02"
-        android:layout_width="125dp"
+    <EditText
+        android:id="@+id/txtlname"
+        android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TextView01"
-        android:text="Address"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:hint="Last Name"
         android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/txtemail"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txtlname"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
         android:textSize="15dp" />
 
 </RelativeLayout>

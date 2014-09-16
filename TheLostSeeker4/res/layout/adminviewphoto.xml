@@ -21,7 +21,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="50dp"
-        android:text="Claim" />
+        android:text="Contact User" />
 
     <TextView
         android:id="@+id/txtuser"
@@ -43,21 +43,22 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#000000" />
 
-    <TextView
-        android:id="@+id/txtitem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ivitem"
-        android:layout_alignTop="@+id/imageView2"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <ImageView
         android:id="@+id/ivitem"
         android:layout_width="250dp"
         android:layout_height="120dp"
+        android:layout_above="@+id/btncontact"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginBottom="54dp"
         android:src="@drawable/viewfound" />
+
+    <TextView
+        android:id="@+id/txtitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignTop="@+id/imageView2"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

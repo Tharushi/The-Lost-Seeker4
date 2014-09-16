@@ -50,11 +50,13 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
@@ -80,6 +82,9 @@ public class Search extends Activity {
 	String namec ;
 	String namedate ;
 	String photourl;
+	
+	String[] stringArray;
+	String[] stringArray1;
 	ImageView iv;
 
 	@Override
@@ -88,8 +93,9 @@ public class Search extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search);
 
-		final Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+		final Spinner spinner = (Spinner) findViewById(R.id.spinnercategory);
 		listViewdise = (ListView) findViewById(R.id.listViewItems);
+		listViewdise.setChoiceMode(listViewdise.CHOICE_MODE_MULTIPLE);
 		session = new SessionManagement(getApplicationContext());
 		
 		HashMap<String, String> user = session.getUserDetails();
@@ -189,27 +195,7 @@ public class Search extends Activity {
 			return null;
 		}
 
-		private StringBuilder inputStreamToString(InputStream is) {
-
-			String rLine = "";
-			StringBuilder answer = new StringBuilder();
-			BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-
-			try {
-				while ((rLine = rd.readLine()) != null) {
-					answer.append(rLine);
-				}
-			}
-
-			catch (IOException e) {
-				// e.printStackTrace();
-				Toast.makeText(getApplicationContext(),
-						"Error..." + e.toString(), Toast.LENGTH_LONG).show();
-
-			}
-			return answer;
-		}
-
+	
 		@Override
 		protected void onPostExecute(String result) {
 
@@ -226,12 +212,15 @@ public class Search extends Activity {
 	// build hash set for list view
 	public void ListDrwaer() throws IOException {
 		List<Map<String, String>> itemDetails = new ArrayList<Map<String, String>>();
+	
 		
 		Date Date = null;
 		try {
 
 			JSONObject jsonResponse = new JSONObject(jsonResult);
 			JSONArray jsonMainNode = jsonResponse.optJSONArray("disease");
+			 stringArray = new String[jsonMainNode.length()];
+			 stringArray1 = new String[jsonMainNode.length()];
 
 			for (int i = 0; i < jsonMainNode.length(); i++) {
 				JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
@@ -240,19 +229,54 @@ public class Search extends Activity {
 				 namel = jsonChildNode.optString("location");
 				 namec = jsonChildNode.optString("colour");
 				 photourl=jsonChildNode.optString("photo");
-				// namedate = jsonChildNode.optString("FoundDate");
-				 
-				// String dateStr = jsonChildNode.opt("FoundDate").toString();
-				// System.out.println("date isss:" +dateStr);
-				// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");			
-				// Date = sdf.parse(dateStr);
-				
-			
+				 namedate = jsonChildNode.optString("foundDate");
+						
 			String outPut = "Found ItemID" + "-" + nameID + "\nDescription"
-						+ "-" + named + "\nLocation" + "-" + namel + "\nColour"
-						+ "-" + namec+ "\nDate"+"-"+Date+"\n\nPhoto"+"-"+photourl;
+						+ "-" + named + "\nLocation"
+						+ "-" + namec+ "\nFound Date"+"-"+namedate;
+			
+			stringArray1[i]=nameID.toString();		
+			
+			stringArray[i]=photourl;
+			
 
 			itemDetails.add(createItem("disease", outPut));
+			listViewdise.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+
+			        TextView c = (TextView) view; //<--this one 
+			        String text = c.getText().toString();
+			        System.out.println("texttt!!!!!!!!!!!!!!!!!!!!!!!!!! : "+text);
+			        String photourll = ((TextView) view.findViewById(android.R.id.text1)).getText().toString();
+		       //    String founditemidd = ((TextView) view.findViewById(android.R.id.text2)).getText().toString();
+			        Bundle b = new Bundle();
+			        Intent intent = new Intent(Search.this, ItemDetails.class);
+			        b.putString("details", text);
+			       
+			       b.putString("photourl", stringArray[position]);
+			       	
+			       System.out.println("photurl!!!!!!!!!!!!!!!!!!!!!!!!!! : "+position+" "+stringArray[position]);
+			        
+			        b.putString("founditemID",stringArray1[position]);
+			  //     System.out.println("found item!!!!!!!!!!!!!!!!!!!!!!!!!! : "+founditemidd);
+			       
+			     
+			        intent.putExtras(b);  
+	                startActivity(intent);
+			        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+			    		   
+				
+					System.out.println("!!!!!!!!!!!!!!position  "+position);
+				
+					
+
+					
+				}
+				
+			});
+		//	itemDetails.add(createItem("foundid", outitemID));
+			//itemDetails.add(createItem("url", outurl));
 			//loadImage("http://"+ Appsettings.ipAddress
 			//		+ "/mobileimages/pic1img20140913022803.png");
 		
@@ -268,11 +292,11 @@ public class Search extends Activity {
 			// "Errortree.." + e.toString(), Toast.LENGTH_LONG).show();
 		}
 
-		SimpleAdapter simpleAdapter = new SimpleAdapter(this, itemDetails,
-				android.R.layout.simple_list_item_1,
-				new String[] { "disease" }, new int[] { android.R.id.text1 });
+		ListAdapter simpleAdapter = new SimpleAdapter(this, itemDetails,android.R.layout.simple_list_item_1,
+				new String[] { "disease","foundid","url" }, new int[] { android.R.id.text1,android.R.id.text2 });
 
 		listViewdise.setAdapter(simpleAdapter);
+		
 
 	}
 
@@ -280,29 +304,7 @@ public class Search extends Activity {
 		HashMap<String, String> employeeNameNo = new HashMap<String, String>();
 		employeeNameNo.put(name, name1);
 	
-		listViewdise.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-
-		        TextView c = (TextView) view; //<--this one 
-		        String text = c.getText().toString();
-		        Bundle b = new Bundle();
-		        b.putString("details", text);
-		        b.putString("photourl", photourl);
-		        b.putString("founditemID",nameID.toString());
-		       
-		        Intent intent = new Intent(Search.this, ItemDetails.class);
-		        intent.putExtras(b);  
-                startActivity(intent);
-		        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-		    		   
-			
-				System.out.println("!!!!!!!!!!!!!! inside");
-			
-
-			}
-			
-		});
+	
 		return employeeNameNo;
 
 	}

@@ -14,15 +14,6 @@
         android:text="Welcome Admin"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
-        android:id="@+id/btnclaimntifications"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="34dp"
-        android:text="Claim Notifications" />
-
     <ImageView
         android:id="@+id/ImageView03"
         android:layout_width="70dp"
@@ -43,47 +34,72 @@
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="100dp"
-        android:layout_height="90dp"
+        android:layout_width="90dp"
+        android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="16dp"
         android:src="@drawable/notify" />
 
-    <Button
-        android:id="@+id/Button02"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/Button01"
-        android:layout_marginTop="48dp"
-        android:text="View Lost Items" />
-
-    <Button
-        android:id="@+id/Button01"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_alignBottom="@+id/ImageView01"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="28dp"
-        android:text="View Found Items" />
+    <ImageView
+        android:id="@+id/ImageView01"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/imageView1"
+        android:src="@drawable/viewwfound" />
 
     <ImageView
         android:id="@+id/ImageView02"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/ImageView01"
-        android:layout_marginTop="15dp"
         android:src="@drawable/viewwlost" />
 
+    <Button
+        android:id="@+id/btnlost"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/ImageView02"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="24dp"
+        android:text="View Lost Items" />
+
+    <Button
+        android:id="@+id/btnviewall"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/ImageView04"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="14dp"
+        android:text="View All Items" />
+
     <ImageView
-        android:id="@+id/ImageView01"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/ImageView04"
+        android:layout_width="90dp"
+        android:layout_height="70dp"
+        android:layout_above="@+id/btnlogout"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imageView1"
-        android:layout_marginTop="14dp"
-        android:src="@drawable/viewwfound" />
+        android:layout_marginBottom="19dp"
+        android:src="@drawable/viewlost" />
+
+    <Button
+        android:id="@+id/btnfound"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/ImageView01"
+        android:layout_marginTop="21dp"
+        android:text="View Found Items" />
+
+    <Button
+        android:id="@+id/btnclaims"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_marginTop="19dp"
+        android:text="Claim Notifications" />
 
 </RelativeLayout>
